@@ -1,5 +1,5 @@
-import LoginPage from './auth/login/page'
+import OnboardingPage from './onboarding/page'
 
 export default function Home() {
-  return <LoginPage />
+  return <OnboardingPage />
 }
