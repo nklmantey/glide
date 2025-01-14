@@ -1,6 +1,6 @@
 'use client'
 
-import { LoginForm } from '@/components/forms'
+import { RegisterForm } from '@/components/forms'
 import { AppContainer, BackButton, Logo } from '@/components/global'
 
 export default function LoginPage() {
@@ -11,7 +11,7 @@ export default function LoginPage() {
 					<BackButton iconOnly />
 					<Logo iconOnly />
 				</div>
-				<LoginForm />
+				<RegisterForm />
 			</div>
 		</AppContainer>
 	)
