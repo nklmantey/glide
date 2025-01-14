@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import { cn } from '@/lib/utils'
+import { AuthWrapper } from '@/components/layouts/auth-wrapper'
 
 const studio = localFont({
 	src: '../public/assets/fonts/StudioFeixenSans.ttf',
@@ -31,7 +32,7 @@ export default function RootLayout({
 					'antialiased min-h-screen w-screen text-sm tracking-tight bg-[#f9f9f9]'
 				)}
 			>
-				{children}
+				<AuthWrapper>{children}</AuthWrapper>
 			</body>
 		</html>
 	)
