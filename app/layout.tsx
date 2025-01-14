@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import { cn } from '@/lib/utils'
-import { AuthWrapper } from '@/components/layouts/auth-wrapper'
+import { AuthWrapper } from '@/components/layouts'
 
 const studio = localFont({
 	src: '../public/assets/fonts/StudioFeixenSans.ttf',
