@@ -7,9 +7,11 @@ import { Button } from '../ui'
 import { motion, AnimatePresence } from 'motion/react'
 import { ArrowLeft } from '@phosphor-icons/react'
 import { useRouter } from 'next/navigation'
+import { useOnboardingStore } from '@/store'
 
 export function OnboardingFlow() {
 	const router = useRouter()
+	const { setIsOnboardingCompleted } = useOnboardingStore()
 	const [currentStep, setCurrentStep] = useState(0)
 
 	// MOTION VARIANTS
@@ -25,9 +27,11 @@ export function OnboardingFlow() {
 
 	function handleOnboardingFlowForward() {
 		if (currentStep === onboardingList.length - 1) {
-			router.replace('/dashboard')
+			router.replace('/auth/register')
+			setIsOnboardingCompleted(true)
 			return
 		}
+
 		setCurrentStep((prev) => prev + 1)
 	}
 
