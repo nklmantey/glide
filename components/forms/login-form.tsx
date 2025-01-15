@@ -5,7 +5,7 @@ import { LoginInputSchema, LoginInputType } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { loginUser, verifyUserEmail } from '@/api'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { Info } from '@phosphor-icons/react/dist/ssr'
 import { OtpInput } from '../global'
@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { Spinner } from '@phosphor-icons/react'
 
 export default function LoginForm() {
+	const router = useRouter()
 	const [isEmailVerified, setIsEmailVerified] = useState(false)
 
 	const params = useSearchParams()
@@ -32,6 +33,7 @@ export default function LoginForm() {
 		mutationFn: loginUser.fn,
 		onSuccess: () => {
 			toast.success("you're in!")
+			router.replace('/dashboard')
 		},
 		onError: (e) => {
 			toast.error(e?.message?.toLowerCase())
@@ -58,7 +60,7 @@ export default function LoginForm() {
 		<form onSubmit={handleSubmit(onSubmit)}>
 			{isNewUser && !isEmailVerified && (
 				<div className='flex flex-col items-center gap-2 mb-4'>
-					<div className='bg-[cornflowerblue]/20 w-full rounded-full px-2 py-1 flex items-center gap-2'>
+					<div className='bg-[cornflowerblue]/20 w-fit rounded-full px-2 py-1 flex items-center gap-2'>
 						<Info weight='duotone' size={20} color='cornflowerblue' />
 						<p className='text-zinc-500 text-sm'>check your email for a one-time verification code</p>
 					</div>
@@ -92,7 +94,7 @@ export default function LoginForm() {
 				/>
 
 				<div className='flex flex-col gap-4 items-center'>
-					<Button disabled={!isEmailVerified} type='submit' isLoading={isLoggingInUser}>
+					<Button type='submit' isLoading={isLoggingInUser}>
 						log in
 					</Button>
 					<Link href='/auth/register'>
