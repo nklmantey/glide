@@ -1,3 +1,4 @@
 import { useOnboardingStore } from './useOnboarding'
+import { useSessionStore } from './useSession'
 
-export { useOnboardingStore }
+export { useOnboardingStore, useSessionStore }

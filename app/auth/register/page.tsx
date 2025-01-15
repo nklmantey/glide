@@ -8,7 +8,7 @@ export default function LoginPage() {
 		<AppContainer>
 			<div className='h-full w-full flex flex-col items-center justify-center gap-8'>
 				<div className='flex gap-1 items-center'>
-					<BackButton iconOnly />
+					<BackButton iconOnly route='/' />
 					<Logo iconOnly />
 				</div>
 				<RegisterForm />

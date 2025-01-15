@@ -15,7 +15,7 @@ export const useOnboardingStore = create(
 		}),
 		{
 			name: 'glide-onboarding-store',
-			// storage: createJSONStorage(() => AsyncStorage),
+			storage: createJSONStorage(() => sessionStorage),
 		}
 	)
 )
