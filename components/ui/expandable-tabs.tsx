@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { cn } from '@/lib/utils'
+import { useActiveTabStore } from '@/store'
 
 interface Tab {
 	title: string
@@ -46,10 +47,10 @@ const spanVariants = {
 const transition = { delay: 0.1, type: 'spring', bounce: 0, duration: 0.6 }
 
 export function ExpandableTabs({ tabs, className, activeColor = 'text-primary', onChange }: ExpandableTabsProps) {
-	const [selected, setSelected] = React.useState<number | null>(0)
+	const { activeTab, setActiveTab } = useActiveTabStore()
 
 	const handleSelect = (index: number) => {
-		setSelected(index)
+		setActiveTab(index)
 		onChange?.(index)
 	}
 
@@ -69,28 +70,28 @@ export function ExpandableTabs({ tabs, className, activeColor = 'text-primary', 
 						variants={buttonVariants}
 						initial={false}
 						animate='animate'
-						custom={selected === index}
+						custom={activeTab === index}
 						onClick={() => handleSelect(index)}
 						transition={transition}
 						className={cn(
 							'relative flex items-center rounded-xl px-4 py-2 text-sm font-medium transition-colors duration-300',
-							selected === index ? cn('bg-[#e3e3e3]', activeColor) : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+							activeTab === index ? cn('bg-[#e3e3e3]', activeColor) : 'text-muted-foreground hover:bg-muted hover:text-foreground'
 						)}
 					>
 						<Icon
 							size={20}
-							weight={selected === index ? 'fill' : 'regular'}
-							className={cn(selected === index ? 'text-[crimson]/80' : null)}
+							weight={activeTab === index ? 'fill' : 'regular'}
+							className={cn(activeTab === index ? 'text-[crimson]/80' : null)}
 						/>
 						<AnimatePresence initial={false}>
-							{selected === index && (
+							{activeTab === index && (
 								<motion.span
 									variants={spanVariants}
 									initial='initial'
 									animate='animate'
 									exit='exit'
 									transition={transition}
-									className={cn('overflow-hidden', selected === index ? 'text-[crimson]/80' : null)}
+									className={cn('overflow-hidden', activeTab === index ? 'text-[crimson]/80' : null)}
 								>
 									{tab.title}
 								</motion.span>

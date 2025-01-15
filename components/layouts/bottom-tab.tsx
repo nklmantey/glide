@@ -14,7 +14,7 @@ export function BottomTab() {
 	]
 
 	return (
-		<div className='absolute bottom-0 flex'>
+		<div className='absolute bottom-6 lg:bottom-0'>
 			<ExpandableTabs tabs={tabs as []} />
 		</div>
 	)

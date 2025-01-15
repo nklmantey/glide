@@ -1,44 +1,30 @@
 'use client'
 
-import { logoutUser } from '@/api'
 import { AppContainer } from '@/components/global'
 import { BottomTab } from '@/components/layouts/bottom-tab'
-import { Button } from '@/components/ui'
 import DotPattern from '@/components/ui/dot-pattern'
-import { cn } from '@/lib/utils'
-import { useSessionStore } from '@/store'
-import { SignOut } from '@phosphor-icons/react'
+import { useActiveTabStore } from '@/store'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { Dashboard } from '@/components/content'
 
 export default function DashboardPage() {
-	const { session, setSession } = useSessionStore()
 	const router = useRouter()
+	const { activeTab } = useActiveTabStore()
 
-	const { mutate: handleLogoutUser, isPending: isLoggingOutUser } = useMutation({
-		mutationKey: logoutUser.key,
-		mutationFn: logoutUser.fn,
-		onSuccess: () => {
-			setSession(null)
-			router.replace('/auth/login')
-		},
-		onError: (e) => {
-			toast.error(e?.message?.toLowerCase())
-		},
-	})
+	const contentToRender = {
+		0: <Dashboard />,
+	}
 
 	return (
 		<AppContainer>
-			{/* <p>welcome {session && session.user.user_metadata?.name}</p>
-
-			<Button onClick={() => handleLogoutUser()} isLoading={isLoggingOutUser}>
-				<SignOut weight='duotone' size={20} color='crimson' />
-			</Button> */}
 			<DotPattern className='h-screen w-screen' />
 
-			<div className='relative w-full h-full items-center justify-center flex'>
+			<div className='relative w-full h-full items-start lg:items-center justify-center flex'>
 				<BottomTab />
+
+				<div className='w-full h-[85vh] items-center justify-center flex'>{contentToRender[activeTab as keyof typeof contentToRender]}</div>
 			</div>
 		</AppContainer>
 	)
