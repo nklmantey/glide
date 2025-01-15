@@ -19,7 +19,7 @@ export function Input({ placeholder, isInvalid, error, ...props }: InputProps) {
 				placeholder={placeholder}
 			/>
 			{error && (
-				<p className='text-[crimson] -mt-1 ml-2 tracking-tight text-sm'>
+				<p className='text-[crimson] -mt-1 ml-2 tracking-tight text-sm max-w-sm'>
 					{error}
 				</p>
 			)}
