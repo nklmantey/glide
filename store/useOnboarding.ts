@@ -10,12 +10,11 @@ export const useOnboardingStore = create(
 	persist<OnboardingStoreType>(
 		(set) => ({
 			isOnboardingCompleted: false,
-			setIsOnboardingCompleted: (isOnboardingCompleted: boolean) =>
-				set(() => ({ isOnboardingCompleted })),
+			setIsOnboardingCompleted: (isOnboardingCompleted: boolean) => set(() => ({ isOnboardingCompleted })),
 		}),
 		{
 			name: 'glide-onboarding-store',
-			storage: createJSONStorage(() => sessionStorage),
+			storage: createJSONStorage(() => localStorage),
 		}
 	)
 )
