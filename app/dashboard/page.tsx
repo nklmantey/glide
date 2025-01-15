@@ -2,7 +2,10 @@
 
 import { logoutUser } from '@/api'
 import { AppContainer } from '@/components/global'
+import { BottomTab } from '@/components/layouts/bottom-tab'
 import { Button } from '@/components/ui'
+import DotPattern from '@/components/ui/dot-pattern'
+import { cn } from '@/lib/utils'
 import { useSessionStore } from '@/store'
 import { SignOut } from '@phosphor-icons/react'
 import { useMutation } from '@tanstack/react-query'
@@ -27,11 +30,16 @@ export default function DashboardPage() {
 
 	return (
 		<AppContainer>
-			<p>welcome {session && session.user.user_metadata?.name}</p>
+			{/* <p>welcome {session && session.user.user_metadata?.name}</p>
 
 			<Button onClick={() => handleLogoutUser()} isLoading={isLoggingOutUser}>
 				<SignOut weight='duotone' size={20} color='crimson' />
-			</Button>
+			</Button> */}
+			<DotPattern className='h-screen w-screen' />
+
+			<div className='relative w-full h-full items-center justify-center flex'>
+				<BottomTab />
+			</div>
 		</AppContainer>
 	)
 }
