@@ -14,7 +14,6 @@ export function AuthWrapper({ children }: AuthWrapperProps) {
 	const router = useRouter()
 	const { isOnboardingCompleted } = useOnboardingStore()
 	const { setSession, session } = useSessionStore()
-	const [isAuthenticated, setIsAuthenticated] = useState(false)
 	const [isLoading, setIsLoading] = useState(true)
 
 	async function getSession() {
@@ -28,7 +27,6 @@ export function AuthWrapper({ children }: AuthWrapperProps) {
 
 		if (session) setSession(session)
 
-		setIsAuthenticated(!!session)
 		setIsLoading(false)
 	}
 
@@ -37,7 +35,7 @@ export function AuthWrapper({ children }: AuthWrapperProps) {
 	}, [router])
 
 	useEffect(() => {
-		if (session) return
+		if (session) router.replace('/dashboard')
 
 		if (!isLoading && !session) {
 			isOnboardingCompleted ? router.replace('/auth/login') : router.replace('/')
