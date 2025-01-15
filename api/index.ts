@@ -39,15 +39,19 @@ export const verifyUserEmail = {
 export const loginUser = {
 	key: ['loginUser'],
 	fn: async (input: LoginInputType) => {
-		const { error, data } = await supabase.auth.signInWithOtp({
-			email: input.email,
-			options: {
-				shouldCreateUser: false,
-			},
-		})
+		const { error, data } = await supabase.auth.signInWithPassword({ ...input })
 
 		if (error) throw new Error(error.message)
 
 		return { status: 'success', data: data.user }
+	},
+}
+
+export const logoutUser = {
+	key: ['loginUser'],
+	fn: async () => {
+		const { error } = await supabase.auth.signOut()
+
+		if (error) throw new Error(error.message)
 	},
 }
