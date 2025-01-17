@@ -8,13 +8,10 @@ export function BottomTab() {
 		{ type: 'separator' },
 		{ title: 'notifications', icon: BellRinging },
 		{ title: 'settings', icon: Gear },
-		{ type: 'separator' },
-		{ title: 'insights', icon: Lightbulb },
-		{ title: 'sync', icon: ArrowsClockwise },
 	]
 
 	return (
-		<div className='absolute bottom-6 lg:bottom-0'>
+		<div className='absolute bottom-2 lg:bottom-0'>
 			<ExpandableTabs tabs={tabs as []} />
 		</div>
 	)
