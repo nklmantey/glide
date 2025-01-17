@@ -61,15 +61,15 @@ export default function LoginForm() {
 			{isNewUser && !isEmailVerified && (
 				<div className='flex flex-col items-center gap-2 mb-4'>
 					<div className='bg-[cornflowerblue]/20 w-fit rounded-full px-2 py-1 flex items-center gap-2'>
-						<Info weight='duotone' size={20} color='cornflowerblue' />
-						<p className='text-zinc-500 text-sm'>check your email for a one-time verification code</p>
+						<Info weight='duotone' size={16} color='cornflowerblue' />
+						<p className='text-zinc-500'>check your email for a one-time verification code</p>
 					</div>
 
 					<OtpInput onComplete={(d) => handleVerifyUserEmail({ email: userEmailForVerification!, otp: d })} />
 
 					{isVerifyingOtp && (
 						<div className='flex items-center gap-2'>
-							<Spinner weight='duotone' size={20} className='animate-spin' />
+							<Spinner weight='duotone' size={16} className='animate-spin' />
 							verifying...
 						</div>
 					)}

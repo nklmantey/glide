@@ -12,7 +12,7 @@ export default function DashboardPage() {
 
 	const contentToRender = {
 		0: <Dashboard />,
-		4: <Settings />,
+		2: <Settings />,
 	}
 
 	return (

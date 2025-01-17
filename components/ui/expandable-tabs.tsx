@@ -74,12 +74,12 @@ export function ExpandableTabs({ tabs, className, activeColor = 'text-primary', 
 						onClick={() => handleSelect(index)}
 						transition={transition}
 						className={cn(
-							'relative flex items-center rounded-xl px-4 py-2 text-sm font-medium transition-colors duration-300',
+							'relative flex items-center rounded-xl px-4 py-2 font-medium transition-colors duration-300',
 							activeTab === index ? cn('bg-[#e3e3e3]', activeColor) : 'text-muted-foreground hover:bg-muted hover:text-foreground'
 						)}
 					>
 						<Icon
-							size={20}
+							size={16}
 							weight={activeTab === index ? 'fill' : 'regular'}
 							className={cn(activeTab === index ? 'text-[crimson]/80' : null)}
 						/>
