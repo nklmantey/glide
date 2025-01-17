@@ -17,15 +17,17 @@ export function AuthWrapper({ children }: AuthWrapperProps) {
 	const [isLoading, setIsLoading] = useState(true)
 
 	async function getSession() {
+		if (session) return
+
 		const {
-			data: { session },
+			data: { session: supabaseSession },
 		} = await supabase.auth.getSession()
 
 		supabase.auth.onAuthStateChange((_event, s) => {
 			if (s) setSession(s)
 		})
 
-		if (session) setSession(session)
+		if (supabaseSession) setSession(supabaseSession)
 
 		setIsLoading(false)
 	}

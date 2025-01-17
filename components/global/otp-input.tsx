@@ -21,7 +21,7 @@ export default function OtpInput({ onComplete, autoFocus = true }: OtpInputProps
 						))}
 					</div>
 
-					<Minus size={20} className='text-zinc-400' />
+					<Minus size={16} className='text-zinc-400' />
 
 					<div className='flex'>
 						{slots.slice(3).map((slot, idx) => (
@@ -51,7 +51,7 @@ function Slot(props: SlotProps) {
 			)}
 		>
 			{props.char !== null && <div>{props.char}</div>}
-			{props.hasFakeCaret && <LineVertical className='text-zinc-400 animate-caret-blink' size={20} />}
+			{props.hasFakeCaret && <LineVertical className='text-zinc-400 animate-caret-blink' size={16} />}
 		</div>
 	)
 }
