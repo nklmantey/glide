@@ -29,14 +29,20 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={cn(berkeley.variable, studio.className, 'antialiased min-h-screen w-screen text-sm tracking-tight bg-[#f9f9f9]')}>
+			<body
+				className={cn(
+					berkeley.variable,
+					studio.className,
+					'antialiased min-h-screen w-screen text-[12px] md:text-sm tracking-tight bg-[#f9f9f9]'
+				)}
+			>
 				<TanstackProvider>
 					<Toaster
 						richColors
 						icons={{
-							success: <CheckCircle weight='duotone' color='green' size={20} />,
-							error: <WarningCircle weight='duotone' color='crimson' size={20} />,
-							info: <Info weight='duotone' color='cornflowerblue' size={20} />,
+							success: <CheckCircle weight='duotone' color='green' size={16} />,
+							error: <WarningCircle weight='duotone' color='crimson' size={16} />,
+							info: <Info weight='duotone' color='cornflowerblue' size={16} />,
 						}}
 						className='font-studio'
 					/>
