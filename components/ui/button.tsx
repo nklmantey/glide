@@ -15,8 +15,8 @@ export function Button({ children, isLoading, disabled, destructive, ...props }:
 			{...props}
 			disabled={disabled || isLoading}
 			className={cn(
-				'bg-zinc-100 px-6 py-1 border-[1px] border-b-4 border-zinc-300 hover:bg-zinc-200 hover:border-b-[1px] hover:box-border hover:border-zinc-300 rounded-lg transition-all duration-300 text-zinc-400 hover:text-[#212427] tracking-tight flex items-center justify-center gap-2',
-				destructive && 'border-[crimson] text-[crimson] border-b-4 rounded-lg',
+				'bg-zinc-100 px-6 py-1 border-[1px] border-b-4 border-zinc-300 hover:border-zinc-500 rounded-lg transition-all duration-500 text-zinc-500 hover:text-[#212427] tracking-tight flex items-center justify-center gap-2',
+				destructive && 'border-[crimson]/50 text-[crimson]/50 border-b-4 rounded-lg hover:border-[crimson] hover:text-[crimson]',
 				(disabled || isLoading) && 'cursor-not-allowed hover:bg-zinc-100 bg-zinc-100 text-zinc-400 hover:text-zinc-400 border-none',
 				props.className && props.className
 			)}
