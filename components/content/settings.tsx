@@ -3,10 +3,11 @@ import { useActiveTabStore, useSessionStore } from '@/store'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { Button } from '../ui'
+import { Button, Input } from '../ui'
 import { DoorOpen, User, Bell, Shield, Gear, PaintBrush } from '@phosphor-icons/react/dist/ssr'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
+import { CircleWavyCheck } from '@phosphor-icons/react'
 
 export default function Settings() {
 	const [activeSection, setActiveSection] = useState('profile')
@@ -47,11 +48,18 @@ export default function Settings() {
 		},
 	]
 
+	const settingsContent = {
+		profile: <Profile />,
+		// notifications: <h1>notifications</h1>,
+		// 'privacy & security': <h1>privacy & security</h1>,
+		// appearance: <h1>appearance</h1>,
+	}
+
 	return (
 		<div className='w-full h-full flex max-w-4xl'>
 			{/* Settings Navigation */}
 			<div className='flex flex-col pt-12 pb-1 justify-between'>
-				<div className='flex flex-col gap-3 pr-4'>
+				<div className='flex flex-col gap-3'>
 					{settingsLabels.map((i) => {
 						const Icon = i.icon
 						return (
@@ -59,8 +67,9 @@ export default function Settings() {
 								onClick={() => setActiveSection(i.label)}
 								key={i.label}
 								className={cn(
-									'flex items-center gap-2 hover:cursor-pointer hover:bg-zinc-200 w-full rounded px-2 py-0.5 transition-all duration-500',
-									activeSection === i.label && 'bg-zinc-200 text-[crimson]'
+									'flex items-center gap-2 hover:cursor-pointer hover:bg-zinc-200 w-full px-2 py-0.5 transition-all duration-500',
+									activeSection === i.label &&
+										'hover:bg-[crimson]/10 hover:border-r-2 hover:border-r-[crimson] bg-[crimson]/10 border-r-2 border-r-[crimson] text-[crimson]'
 								)}
 							>
 								<Icon weight='duotone' size={16} />
@@ -76,11 +85,43 @@ export default function Settings() {
 			</div>
 
 			{/* Settings Content */}
-			<div className='flex-1 border border-zinc-200 rounded-xl'></div>
-			{/* <div className='flex-1'>
-					<h1 className='text-2xl font-semibold mb-8'>{settingsSections.find((s) => s.id === activeSection)?.label}</h1>
-					{activeSection === 'account' && <div className='space-y-6'>content</div>}
-				</div> */}
+			<div className='flex-1 border border-zinc-200 rounded-xl p-12'>{settingsContent[activeSection as keyof typeof settingsContent]}</div>
+		</div>
+	)
+}
+
+function Profile() {
+	const { session } = useSessionStore()
+
+	const fields = [
+		{
+			label: 'name',
+			value: session?.user?.user_metadata.name,
+		},
+		{
+			label: 'email',
+			value: session?.user?.user_metadata.email,
+		},
+	]
+
+	const isUserEmailVerified = session?.user?.user_metadata.email_verified
+
+	return (
+		<div className='flex flex-col gap-8'>
+			{fields.map((i) => (
+				<div key={i.label} className='flex flex-col gap-[2px]'>
+					<div key={i.label} className='flex flex-col gap-[2px]'>
+						<p>{i.label}</p>
+						<Input defaultValue={i.value} />
+					</div>
+					{i.label === 'email' && isUserEmailVerified && (
+						<div className='bg-[green]/10 w-fit rounded-lg px-2 py-0.5 flex items-center gap-2'>
+							<CircleWavyCheck weight='duotone' size={16} color='green' />
+							<p className='text-[green]'>user email is verified</p>
+						</div>
+					)}
+				</div>
+			))}
 		</div>
 	)
 }

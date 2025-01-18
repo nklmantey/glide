@@ -7,12 +7,22 @@ export default {
 		extend: {
 			keyframes: {
 				'caret-blink': {
-					'0%,70%,100%': { opacity: '1' },
-					'20%,50%': { opacity: '0' },
+					'0%,70%,100%': {
+						opacity: '1',
+					},
+					'20%,50%': {
+						opacity: '0',
+					},
+				},
+				'border-beam': {
+					'100%': {
+						'offset-distance': '100%',
+					},
 				},
 			},
 			animation: {
 				'caret-blink': 'caret-blink 1.2s ease-out infinite',
+				'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
 			},
 			colors: {
 				background: 'var(--background)',
@@ -21,6 +31,7 @@ export default {
 			fontFamily: {
 				studio: 'var(--font-studio)',
 				berkeley: 'var(--font-berkeley)',
+				geist: 'var(--font-geist)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
