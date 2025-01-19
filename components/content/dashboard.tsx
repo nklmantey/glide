@@ -8,9 +8,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog'
 import { Input } from '../ui/input'
 import { cn } from '@/lib/utils'
 import { ArrowLeft } from '@phosphor-icons/react'
-import data from '@emoji-mart/data'
-import Picker from '@emoji-mart/react'
 import EmptyState from '../global/empty-state'
+import { toast } from 'sonner'
 
 interface AppInfo {
 	name: string
@@ -60,7 +59,7 @@ export default function Dashboard() {
 			</div>
 
 			{/* B */}
-			<div className='col-span-1 row-span-2 border border-zinc-200 p-4 bg-white rounded-xl'>B</div>
+			<div className='col-span-1 row-span-2 border border-zinc-200 p-4 bg-white rounded-xl'>to be decided</div>
 
 			{/* PROFILES OVERVIEW */}
 			<div className='relative col-span-2 row-span-1 border border-zinc-200 p-4 bg-white rounded-xl'>
@@ -126,7 +125,7 @@ function YourProfiles() {
 	}
 
 	const handleSubmit = () => {
-		console.log('FINAL VALUES:', formState)
+		toast(JSON.stringify(formState, null, 2))
 		setIsDialogOpen(false)
 		setCurrentStep(1)
 		setFormState({ name: '', emoji: '', selectedApps: [] })
