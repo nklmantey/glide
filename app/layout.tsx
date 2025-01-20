@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import { Geist } from 'next/font/google'
 import './globals.css'
 import { cn } from '@/lib/utils'
 import { AuthWrapper } from '@/components/layouts'
@@ -8,20 +7,24 @@ import TanstackProvider from '@/providers/tanstack'
 import { Toaster } from 'sonner'
 import { CheckCircle, WarningCircle, Info } from '@phosphor-icons/react/dist/ssr'
 
-const studio = localFont({
-	src: '../public/assets/fonts/StudioFeixenSans.ttf',
-	variable: '--font-studio',
-})
-
 const berkeley = localFont({
 	src: '../public/assets/fonts/Berkeley.otf',
 	variable: '--font-berkeley',
 })
 
-const geist = Geist({
-	display: 'swap',
-	variable: '--font-geist',
-	subsets: ['latin'],
+const hafferBold = localFont({
+	src: '../public/assets/fonts/Haffer-Bold.woff2',
+	variable: '--font-haffer-bold',
+})
+
+const hafferRegular = localFont({
+	src: '../public/assets/fonts/Haffer-Regular.woff2',
+	variable: '--font-haffer-regular',
+})
+
+const hafferSemibold = localFont({
+	src: '../public/assets/fonts/Haffer-Semibold.woff2',
+	variable: '--font-haffer-semibold',
 })
 
 export const metadata: Metadata = {
@@ -39,8 +42,9 @@ export default function RootLayout({
 			<body
 				className={cn(
 					berkeley.variable,
-					geist.variable,
-					studio.className,
+					hafferRegular.className,
+					hafferBold.variable,
+					hafferSemibold.variable,
 					'antialiased min-h-screen w-screen text-[12px] md:text-sm tracking-tight bg-[#f9f9f9]'
 				)}
 			>
@@ -52,7 +56,7 @@ export default function RootLayout({
 							error: <WarningCircle weight='duotone' color='crimson' size={16} />,
 							info: <Info weight='duotone' color='cornflowerblue' size={16} />,
 						}}
-						className='font-studio'
+						className='font-regular tracking-normal'
 					/>
 					<AuthWrapper>{children}</AuthWrapper>
 				</TanstackProvider>

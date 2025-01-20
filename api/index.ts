@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase/client'
 import { LoginInputType, RegisterInputType, VerifyOtpInputType } from '@/schemas'
+import { SupabaseProfileRow } from '@/types'
 
 export const registerUser = {
 	key: ['registerUser'],
@@ -53,5 +54,36 @@ export const logoutUser = {
 		const { error } = await supabase.auth.signOut()
 
 		if (error) throw new Error(error.message)
+	},
+}
+
+export const saveProfile = {
+	key: ['saveProfile'],
+	fn: async (input: SupabaseProfileRow) => {
+		const { data, error } = await supabase.from('profiles').insert(input).select()
+		if (error) throw new Error(error.message)
+
+		return data[0]
+	},
+}
+
+export const deleteProfile = {
+	key: ['deleteProfile'],
+	fn: async ({ profileId }: { profileId: string }) => {
+		const { status, error } = await supabase.from('profiles').delete().eq('id', profileId)
+
+		if (error) throw new Error(error.message)
+
+		console.log('DEL STATUS', status)
+	},
+}
+
+export const getUserProfiles = {
+	key: ['getUserProfiles'],
+	fn: async ({ id }: { id: string }) => {
+		const { data, error } = await supabase.from('profiles').select('*').eq('user_id', id)
+		if (error) throw new Error(error.message)
+
+		return data
 	},
 }

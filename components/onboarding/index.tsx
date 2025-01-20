@@ -27,8 +27,8 @@ export function OnboardingFlow() {
 
 	function handleOnboardingFlowForward() {
 		if (currentStep === onboardingList.length - 1) {
-			router.replace('/auth/register')
 			setIsOnboardingCompleted(true)
+			router.replace('/auth/register')
 			return
 		}
 
@@ -59,23 +59,14 @@ export function OnboardingFlow() {
 								transition={{ duration: 1, delay: 1.5, ease: 'easeInOut' }}
 								className='flex flex-col gap-2'
 							>
-								<div className='w-8 h-8 flex items-center justify-center bg-[#212427] text-zinc-200 font-bold rounded-full'>
+								<div className='w-8 h-8 flex items-center justify-center bg-[#212427] font-hbold text-zinc-200 rounded-full'>
 									{item.id + 1}
 								</div>
-								{item.title}
+								<p className='font-hbold '>{item.title}</p>
 							</motion.div>
 
-							<motion.div
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ duration: 3, delay: 2, ease: 'easeInOut' }}
-							>
-								<TextAnimate
-									key={currentStep}
-									className='max-w-xl text-balance text-zinc-500'
-									animation='blurInUp'
-									by='character'
-								>
+							<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 3, delay: 2, ease: 'easeInOut' }}>
+								<TextAnimate key={currentStep} className='max-w-2xl text-pretty text-zinc-500' animation='blurInUp' by='character'>
 									{item.description}
 								</TextAnimate>
 							</motion.div>
@@ -93,9 +84,7 @@ export function OnboardingFlow() {
 										</Button>
 									)}
 									<Button onClick={handleOnboardingFlowForward}>
-										{currentStep === onboardingList.length - 1
-											? 'hop in!'
-											: 'continue'}
+										{currentStep === onboardingList.length - 1 ? 'hop in!' : 'continue'}
 									</Button>
 								</div>
 							</motion.div>
