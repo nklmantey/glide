@@ -56,7 +56,7 @@ export default function RootLayout({
 							error: <WarningCircle weight='duotone' color='crimson' size={16} />,
 							info: <Info weight='duotone' color='cornflowerblue' size={16} />,
 						}}
-						className='font-semibold tracking-normal'
+						className='font-regular tracking-normal'
 					/>
 					<AuthWrapper>{children}</AuthWrapper>
 				</TanstackProvider>
