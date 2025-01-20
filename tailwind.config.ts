@@ -29,7 +29,9 @@ export default {
 				foreground: 'var(--foreground)',
 			},
 			fontFamily: {
-				studio: 'var(--font-studio)',
+				hbold: 'var(--font-haffer-bold)',
+				regular: 'var(--font-haffer-regular)',
+				semibold: 'var(--font-haffer-semibold)',
 				berkeley: 'var(--font-berkeley)',
 				geist: 'var(--font-geist)',
 			},

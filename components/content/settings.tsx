@@ -50,9 +50,6 @@ export default function Settings() {
 
 	const settingsContent = {
 		profile: <Profile />,
-		// notifications: <h1>notifications</h1>,
-		// 'privacy & security': <h1>privacy & security</h1>,
-		// appearance: <h1>appearance</h1>,
 	}
 
 	return (
@@ -79,8 +76,8 @@ export default function Settings() {
 					})}
 				</div>
 
-				<Button onClick={() => handleLogoutUser()} isLoading={isLoggingOutUser} destructive className='w-fit self-end mr-4'>
-					<DoorOpen color='crimson' weight='duotone' size={16} />
+				<Button onClick={() => handleLogoutUser()} isLoading={isLoggingOutUser} destructive className='group w-fit self-end mr-4'>
+					<DoorOpen className='text-[crimson]/50 group-hover:text-[crimson]' weight='duotone' size={16} />
 				</Button>
 			</div>
 
@@ -111,7 +108,7 @@ function Profile() {
 			{fields.map((i) => (
 				<div key={i.label} className='flex flex-col gap-[2px]'>
 					<div key={i.label} className='flex flex-col gap-[2px]'>
-						<p>{i.label}</p>
+						<p className='font-hbold'>{i.label}</p>
 						<Input defaultValue={i.value} />
 					</div>
 					{i.label === 'email' && isUserEmailVerified && (
