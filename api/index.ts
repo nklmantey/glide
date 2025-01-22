@@ -73,8 +73,6 @@ export const deleteProfile = {
 		const { status, error } = await supabase.from('profiles').delete().eq('id', profileId)
 
 		if (error) throw new Error(error.message)
-
-		console.log('DEL STATUS', status)
 	},
 }
 
