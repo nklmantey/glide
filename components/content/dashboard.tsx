@@ -1,13 +1,28 @@
 import { BorderBeam } from '../ui/border-beam'
 import { Button } from '@/components/ui/button'
 import { motion } from 'motion/react'
-import { ArrowsClockwise, PlusCircle } from '@phosphor-icons/react'
+import { ArrowsClockwise, Lightning, LightningSlash, PlusCircle, Trash } from '@phosphor-icons/react'
 import EmptyState from '../global/empty-state'
 import { useQuery } from '@tanstack/react-query'
 import { getUserProfiles } from '@/api'
 import { useProfileStore, useSessionStore } from '@/store'
 import { CreateProfileDialog, DeleteProfileDialog } from '../dialogs'
 import { useEffect, useState } from 'react'
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip"
+import {
+	ContextMenu,
+	ContextMenuContent,
+	ContextMenuItem,
+	ContextMenuTrigger,
+} from "@/components/ui/context-menu"
+import { invoke } from '@tauri-apps/api/tauri';
+import { OrbitingCircles } from '../ui/orbiting-circles'
+import Image from 'next/image'
 
 const containerVariants = {
 	hidden: { opacity: 0 },
@@ -58,9 +73,9 @@ export default function Dashboard() {
 			)}
 			<div className='w-full h-full grid grid-cols-3 max-w-4xl gap-[2px]'>
 				{/* ACTIVE PROFILE */}
-				<div className='relative col-span-2 row-span-1 border border-zinc-200 p-4 bg-white rounded-xl'>
+				<div className='relative col-span-2 row-span-1 border border-zinc-200 p-4 bg-white rounded-xl overflow-hidden'>
 					<CurrentProfile />
-					<BorderBeam colorFrom='white' colorTo='crimson' size={400} duration={15} delay={0} borderWidth={2.5} />
+					<BorderBeam size={400} duration={15} delay={0} borderWidth={2.5} />
 				</div>
 
 				{/* B */}
@@ -69,7 +84,7 @@ export default function Dashboard() {
 				{/* PROFILES OVERVIEW */}
 				<div className='relative col-span-2 row-span-1 border border-zinc-200 p-4 bg-white rounded-xl'>
 					<YourProfiles />
-					<BorderBeam colorFrom='white' colorTo='crimson' size={400} duration={15} delay={4} borderWidth={2.5} />
+					<BorderBeam size={400} duration={15} delay={4} borderWidth={2.5} />
 				</div>
 			</div>
 		</div>
@@ -77,61 +92,127 @@ export default function Dashboard() {
 }
 
 function CurrentProfile() {
+	const { activeProfile, setActiveProfile } = useProfileStore()
 	return (
-		<div className='flex flex-col items-center justify-center p-8 max-w-md mx-auto text-center space-y-6'>
-			<h1 className='text-2xl font-medium'>current active profile</h1>
+		<div className='flex flex-col items-center justify-start  text-center space-y-6 relative w-full h-full'>
+			{activeProfile ? (
+				<div className='flex flex-col items-center justify-center w-full h-full gap-4'>
+					<div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg">
+						<span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-black">
+							{activeProfile.profile_name}
+						</span>
 
-			<div className='flex flex-col items-center justify-center space-y-2'>
-				<EmptyState message='no active profile at the moment' />
-			</div>
+						<OrbitingCircles iconSize={40}>
+							{activeProfile.selected_apps.map(app => <Image width={40} height={40} src={app.icon} alt='app icon' />)}
+						</OrbitingCircles>
+						<OrbitingCircles iconSize={30} radius={100} reverse speed={2}>
+							{activeProfile.selected_apps.map(app => <Image width={40} height={40} src={app.icon} alt='app icon' />)}
+
+						</OrbitingCircles>
+					</div>
+					<Button className='w-fit' onClick={() => setActiveProfile(null)}>
+						<LightningSlash weight='duotone' size={16} />
+						turn off active profile
+					</Button>
+				</div>
+			) : (
+				<div className='flex flex-col items-center justify-center space-y-2 w-full h-full'>
+					<EmptyState message='no active profile at the moment' />
+				</div>
+			)}
 		</div>
 	)
 }
 
 function YourProfiles() {
-	const { profiles } = useProfileStore()
+	const { profiles, setActiveProfile } = useProfileStore()
 	const [requesGetInstalledApplications, setRequesGetInstalledApplications] = useState(false)
 	const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
-	const [activeProfile, setActiveProfile] = useState('')
+	const [profileToDelete, setProfileToDelete] = useState('')
+
+	const handleSetActiveProfile = async (profile: any) => {
+		setActiveProfile(profile);
+		if (profile.selected_apps) {
+			try {
+				await invoke('open_apps', {
+					appPaths: profile.selected_apps.map((app: any) => app.path)
+				});
+			} catch (error) {
+				console.error('Failed to open apps:', error);
+			}
+		}
+	};
 
 	return (
 		<div className='flex flex-col items-center justify-between p-8 max-w-md mx-auto text-center space-y-6'>
+			{/* HEADER */}
 			<div className='flex items-center gap-2'>
 				<h1 className='text-2xl font-medium'>saved profiles</h1>
 				{profiles.length > 0 && (
-					<PlusCircle
-						onClick={() => {
-							setRequesGetInstalledApplications(true)
-							setIsCreateDialogOpen(true)
-						}}
-						weight='duotone'
-						size={24}
-						className='cursor-pointer text-zinc-400'
-					/>
+					<TooltipProvider>
+						<Tooltip delayDuration={300}>
+							<TooltipTrigger asChild>
+								<PlusCircle
+									onClick={() => {
+										setRequesGetInstalledApplications(true)
+										setIsCreateDialogOpen(true)
+									}}
+									weight='duotone'
+									size={24}
+									className='cursor-pointer text-zinc-400'
+								/>
+							</TooltipTrigger>
+							<TooltipContent side='right'>
+								<p>create new profile</p>
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
 				)}
 			</div>
 
+			{/* SAVED PROFILES LIST */}
 			{profiles.length > 0 ? (
 				<motion.div className='flex flex-wrap gap-2 w-full h-full' variants={containerVariants} initial='hidden' animate='show'>
 					{profiles.map((profile) => (
 						<motion.div
 							key={profile.emoji}
 							variants={itemVariants}
-							onClick={() => {
-								setIsDeleteDialogOpen(true)
-								setActiveProfile(profile.id)
-							}}
-							className='flex items-center justify-center px-2 py-1 rounded gap-2 cursor-pointer bg-zinc-100 hover:bg-zinc-200'
 						>
-							<span className='text-xs'>{profile.emoji}</span>•<span className='text-xs'>{profile.profile_name}</span>•
-							<div className='flex  flex-wrap items-center gap-2'>
-								{profile.selected_apps?.map((app) => (
-									<div key={app.name} className='bg-[goldenrod]/20 px-2 py-0.5 w-fit rounded-full'>
-										<p className=' text-xs'>{app.name}</p>
-									</div>
-								))}
-							</div>
+							<ContextMenu>
+								<ContextMenuTrigger asChild>
+									<Button>
+										<span className='text-xs'>{profile.emoji}</span>•<span className='text-xs'>{profile.profile_name}</span>•
+										<div className='flex  flex-wrap items-center gap-2'>
+											{profile.selected_apps?.map((app) => (
+												<div key={app.name} className='bg-[goldenrod]/20 px-2 py-0.5 w-fit rounded-full'>
+													<p className=' text-xs'>{app.name}</p>
+												</div>
+											))}
+										</div>
+									</Button>
+								</ContextMenuTrigger>
+								<ContextMenuContent>
+									<ContextMenuItem
+										className='flex items-center gap-1'
+										onClick={() => handleSetActiveProfile(profile)}
+									>
+										<Lightning color='darkgoldenrod' weight='duotone' size={16} />
+										set as active
+									</ContextMenuItem>
+									<ContextMenuItem
+										className='flex items-center gap-1'
+										onClick={() => {
+											setIsDeleteDialogOpen(true)
+											setProfileToDelete(profile.id)
+										}}
+									>
+										<Trash color='crimson' weight='duotone' size={16} />
+										delete
+									</ContextMenuItem>
+								</ContextMenuContent>
+							</ContextMenu>
+
 						</motion.div>
 					))}
 				</motion.div>
@@ -155,7 +236,11 @@ function YourProfiles() {
 				requesGetInstalledApplications={requesGetInstalledApplications}
 			/>
 
-			<DeleteProfileDialog isDialogOpen={isDeleteDialogOpen} setIsDialogOpen={setIsDeleteDialogOpen} id={activeProfile} />
+			<DeleteProfileDialog
+				isDialogOpen={isDeleteDialogOpen}
+				setIsDialogOpen={setIsDeleteDialogOpen}
+				id={profileToDelete}
+			/>
 		</div>
 	)
 }
