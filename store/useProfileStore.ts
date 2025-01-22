@@ -1,4 +1,5 @@
-import { AppInfo, FormState } from '@/types'
+import { storage } from '@/lib/storage'
+import { AppInfo } from '@/types'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
@@ -13,23 +14,27 @@ type Profile = {
 }
 
 type ProfileStoreType = {
+	activeProfile: Profile | null
+	setActiveProfile: (activeProfile: Profile | null) => void
 	profiles: Profile[] | []
-	addProfile: (profile: Profile) => void
 	setProfiles: (profiles: Profile[] | []) => void
+	addProfile: (profile: Profile) => void
 	removeProfile: (id: string) => void
 }
 
 export const useProfileStore = create(
 	persist<ProfileStoreType>(
 		(set, get) => ({
+			activeProfile: null,
+			setActiveProfile: (activeProfile: Profile | null) => set(() => ({ activeProfile })),
 			profiles: [],
-			addProfile: (profile: Profile) => set(() => ({ profiles: [...get().profiles, profile] })),
 			setProfiles: (profiles: Profile[] | []) => set(() => ({ profiles })),
+			addProfile: (profile: Profile) => set(() => ({ profiles: [...get().profiles, profile] })),
 			removeProfile: (id: string) => set(() => ({ profiles: get().profiles.filter((profile) => profile.id !== id) })),
 		}),
 		{
 			name: 'glide-profile-store',
-			storage: createJSONStorage(() => localStorage),
+			storage: createJSONStorage(() => storage),
 		}
 	)
 )

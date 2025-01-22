@@ -1,3 +1,4 @@
+import { storage } from '@/lib/storage'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
@@ -14,7 +15,7 @@ export const useActiveTabStore = create(
 		}),
 		{
 			name: 'glide-activetab-store',
-			storage: createJSONStorage(() => localStorage),
+			storage: createJSONStorage(() => storage),
 		}
 	)
 )
