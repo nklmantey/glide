@@ -70,7 +70,7 @@ export const saveProfile = {
 export const deleteProfile = {
 	key: ['deleteProfile'],
 	fn: async ({ profileId }: { profileId: string }) => {
-		const { status, error } = await supabase.from('profiles').delete().eq('id', profileId)
+		const { error } = await supabase.from('profiles').delete().eq('id', profileId)
 
 		if (error) throw new Error(error.message)
 	},
