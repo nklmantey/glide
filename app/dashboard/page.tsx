@@ -4,7 +4,6 @@ import { AppContainer } from '@/components/global'
 import { BottomTab } from '@/components/layouts/bottom-tab'
 import DotPattern from '@/components/ui/dot-pattern'
 import { useActiveTabStore } from '@/store'
-import { useRouter } from 'next/navigation'
 import { Dashboard, Settings } from '@/components/content'
 
 export default function DashboardPage() {
