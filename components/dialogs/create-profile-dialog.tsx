@@ -9,7 +9,7 @@ import { tauri } from '@tauri-apps/api'
 import { toast } from 'sonner'
 import { saveProfile } from '@/api'
 import { Button } from '../ui'
-import { ArrowLeft } from '@phosphor-icons/react'
+import { ArrowLeft, Spinner } from '@phosphor-icons/react'
 import { motion } from 'motion/react'
 
 const containerVariants = {
@@ -48,7 +48,7 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 	const { session } = useSessionStore()
 
 	const [apps, setApps] = useState<AppInfo[] | null>(null)
-	const [__, setIsLoadingInstalledApps] = useState(false)
+	const [isLoadingInstalledApps, setIsLoadingInstalledApps] = useState(false)
 	const [_, setGetInstalledAppsError] = useState('')
 	const [currentStep, setCurrentStep] = useState(1)
 	const [formState, setFormState] = useState<FormState>({
@@ -103,7 +103,7 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 
 	return (
 		<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-			<DialogContent className='sm:max-w-[425px]'>
+			<DialogContent className='sm:max-w-[525px]'>
 				<DialogHeader>
 					<DialogTitle>
 						{currentStep === 1 && 'choose a name for your profile'}
@@ -156,6 +156,7 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 				{currentStep === 3 && apps && (
 					<div className='flex flex-col items-center justify-center mt-4 space-y-4'>
 						<motion.div className='flex flex-wrap gap-2' variants={containerVariants} initial='hidden' animate='show'>
+							{isLoadingInstalledApps && <Spinner weight='duotone' />}
 							{apps.map((app) => (
 								<motion.div
 									key={app.path}
