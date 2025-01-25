@@ -6,11 +6,12 @@ import { OnboardingFlow } from '@/components/onboarding'
 import { Button } from '@/components/ui'
 import { motion, AnimatePresence } from 'motion/react'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function OnboardingPage() {
 	const router = useRouter()
 	const [isOnboardingStarted, setIsOnboardingStarted] = useState(false)
+	const [isPageMounted, setIsPageMounted] = useState(false)
 
 	function handleStartOnboarding() {
 		setIsOnboardingStarted(true)
@@ -30,6 +31,10 @@ export default function OnboardingPage() {
 		},
 	}
 
+	useEffect(() => {
+		setIsPageMounted(true)
+	}, [isPageMounted])
+
 	return (
 		<AppContainer>
 			<AnimatePresence>
@@ -40,18 +45,17 @@ export default function OnboardingPage() {
 						initial='initial'
 						animate='initial'
 						exit='exit'
+						key='onboarding-container'
 					>
 						<div className='flex flex-col gap-4 items-center'>
-							<motion.div
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ duration: 2.5, ease: 'easeInOut' }}
-							>
+							<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2.5, ease: 'easeInOut' }}>
 								<Logo />
 							</motion.div>
-							<TextAnimate animation='blurInUp' by='character'>
-								effortless workflows, seamless productivity.
-							</TextAnimate>
+							{isPageMounted && (
+								<TextAnimate key='text-animate' animation='blurInUp' by='character'>
+									effortless workflows, seamless productivity.
+								</TextAnimate>
+							)}
 						</div>
 
 						<motion.div
@@ -69,11 +73,7 @@ export default function OnboardingPage() {
 
 			{isOnboardingStarted && (
 				<div className='h-full w-full flex flex-col items-center justify-center'>
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 1, ease: 'easeInOut' }}
-					>
+					<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, ease: 'easeInOut' }}>
 						<OnboardingFlow />
 					</motion.div>
 				</div>
