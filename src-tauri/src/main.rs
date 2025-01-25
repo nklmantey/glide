@@ -8,6 +8,7 @@ use cocoa::{
 };
 use objc::{class, msg_send, sel, sel_impl};
 use base64::{engine::general_purpose::STANDARD as BASE64, Engine};
+use std::process::Command;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AppInfo {
@@ -58,9 +59,31 @@ async fn get_installed_apps() -> Result<Vec<AppInfo>, String> {
     Ok(apps)
 }
 
+#[tauri::command]
+async fn open_apps(app_paths: Vec<String>) -> Result<(), String> {
+    for path in app_paths {
+        match Command::new("open").arg(path).output() {
+            Ok(_) => continue,
+            Err(e) => return Err(format!("Failed to open application: {}", e)),
+        }
+    }
+    Ok(())
+}
+
+#[tauri::command]
+async fn close_apps(app_paths: Vec<String>) -> Result<(), String> {
+    for path in app_paths {
+        match Command::new("pkill").arg("-f").arg(&path).output() {
+            Ok(_) => continue,
+            Err(e) => return Err(format!("Failed to close application: {}", e)),
+        }
+    }
+    Ok(())
+}
+
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![get_installed_apps])
+        .invoke_handler(tauri::generate_handler![get_installed_apps, open_apps, close_apps])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

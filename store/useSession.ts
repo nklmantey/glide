@@ -1,3 +1,4 @@
+import { storage } from '@/lib/storage'
 import { Session } from '@supabase/supabase-js'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
@@ -15,7 +16,7 @@ export const useSessionStore = create(
 		}),
 		{
 			name: 'glide-session-store',
-			storage: createJSONStorage(() => localStorage),
+			storage: createJSONStorage(() => storage),
 		}
 	)
 )

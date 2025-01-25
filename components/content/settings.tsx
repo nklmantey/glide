@@ -4,14 +4,14 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { Button, Input } from '../ui'
-import { DoorOpen, User, Bell, Shield, Gear, PaintBrush } from '@phosphor-icons/react/dist/ssr'
+import { DoorOpen, User, PaintBrush } from '@phosphor-icons/react/dist/ssr'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { CircleWavyCheck } from '@phosphor-icons/react'
 
 export default function Settings() {
 	const [activeSection, setActiveSection] = useState('profile')
-	const { session, setSession } = useSessionStore()
+	const { setSession } = useSessionStore()
 	const { setActiveTab } = useActiveTabStore()
 	const router = useRouter()
 
@@ -35,14 +35,6 @@ export default function Settings() {
 			label: 'profile',
 		},
 		{
-			label: 'notifications',
-			icon: Bell,
-		},
-		{
-			label: 'privacy & security',
-			icon: Shield,
-		},
-		{
 			label: 'appearance',
 			icon: PaintBrush,
 		},
@@ -50,6 +42,7 @@ export default function Settings() {
 
 	const settingsContent = {
 		profile: <Profile />,
+		appearance: <Appearance />,
 	}
 
 	return (
@@ -119,6 +112,15 @@ function Profile() {
 					)}
 				</div>
 			))}
+		</div>
+	)
+}
+
+function Appearance() {
+	return (
+		<div>
+			{/* THEME SWITCHER */}
+			theme switcher and transparent backgrounds coming soon, work in progress...
 		</div>
 	)
 }
