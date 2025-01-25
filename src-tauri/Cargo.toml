@@ -22,6 +22,7 @@ cocoa = "0.25"
 core-foundation = "0.9"
 objc = "0.2"
 base64 = "0.21"
+fix-path-env = { git = "https://github.com/tauri-apps/fix-path-env-rs" }
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.

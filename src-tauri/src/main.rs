@@ -82,6 +82,7 @@ async fn close_apps(app_paths: Vec<String>) -> Result<(), String> {
 }
 
 fn main() {
+    let _ = fix_path_env::fix(); // <---- Add this
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![get_installed_apps, open_apps, close_apps])
         .run(tauri::generate_context!())
