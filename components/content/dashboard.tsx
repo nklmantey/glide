@@ -135,7 +135,7 @@ function CurrentProfile() {
 }
 
 function YourProfiles() {
-	const { profiles, setActiveProfile } = useProfileStore()
+	const { profiles, setActiveProfile, activeProfile } = useProfileStore()
 	const [requesGetInstalledApplications, setRequesGetInstalledApplications] = useState(false)
 	const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
@@ -199,9 +199,13 @@ function YourProfiles() {
 										</Button>
 									</DropdownMenuTrigger>
 									<DropdownMenuContent side='right'>
-										<DropdownMenuItem className='flex items-center gap-1' onClick={() => handleSetActiveProfile(profile)}>
+										<DropdownMenuItem
+											className='flex items-center gap-1 data-[disabled]:opacity-50'
+											onClick={() => handleSetActiveProfile(profile)}
+											disabled={activeProfile?.id === profile.id}
+										>
 											<Lightning color='darkgoldenrod' weight='duotone' size={16} />
-											set as active
+											{activeProfile?.id === profile.id ? 'currently active' : 'set as active'}
 										</DropdownMenuItem>
 										<DropdownMenuItem
 											className='flex items-center gap-1'
