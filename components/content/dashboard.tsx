@@ -99,9 +99,10 @@ function CurrentProfile() {
 	}
 
 	return (
-		<div className='flex flex-col items-center justify-start  text-center space-y-6 relative w-full h-full'>
+		<div className='flex flex-col items-center justify-start text-center space-y-6 relative w-full h-full'>
 			{activeProfile ? (
 				<div className='flex flex-col items-center justify-center w-full h-full gap-4'>
+					{/* ORBITING CIRCLES ANIMATION */}
 					<div className='relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg'>
 						<span className='pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-black'>
 							{activeProfile.profile_name}
@@ -118,6 +119,7 @@ function CurrentProfile() {
 							))}
 						</OrbitingCircles>
 					</div>
+
 					<Button className='w-fit' onClick={handleTurnOffProfile}>
 						<LightningSlash weight='duotone' size={16} />
 						turn off active profile
@@ -153,72 +155,72 @@ function YourProfiles() {
 	}
 
 	return (
-		<div className='flex flex-col items-center justify-between p-8 max-w-md mx-auto text-center space-y-6'>
-			{/* HEADER */}
-			<div className='flex items-center gap-2'>
-				<h1 className='text-2xl font-medium'>saved profiles</h1>
-				{profiles.length > 0 && (
-					<TooltipProvider>
-						<Tooltip delayDuration={300}>
-							<TooltipTrigger asChild>
-								<PlusCircle
-									onClick={() => {
-										setRequesGetInstalledApplications(true)
-										setIsCreateDialogOpen(true)
-									}}
-									weight='duotone'
-									size={24}
-									className='cursor-pointer text-zinc-400'
-								/>
-							</TooltipTrigger>
-							<TooltipContent side='right'>
-								<p>create new profile</p>
-							</TooltipContent>
-						</Tooltip>
-					</TooltipProvider>
-				)}
-			</div>
-
+		<div className='flex flex-col items-center justify-start text-center space-y-6 relative w-full h-full'>
 			{/* SAVED PROFILES LIST */}
 			{profiles.length > 0 ? (
-				<motion.div className='flex flex-wrap gap-2 w-full h-full' variants={containerVariants} initial='hidden' animate='show'>
-					{profiles.map((profile) => (
-						<motion.div key={profile.emoji} variants={itemVariants}>
-							<DropdownMenu>
-								<DropdownMenuTrigger asChild>
-									<Button>
-										<span className='text-xs'>{profile.emoji}</span>•<span className='text-xs'>{profile.profile_name}</span>•
-										<div className='flex  flex-wrap items-center gap-2'>
-											{profile.selected_apps?.map((app) => (
-												<div key={app.name} className='bg-[goldenrod]/20 px-2 py-0.5 w-fit rounded-full'>
-													<p className=' text-xs'>{app.name}</p>
-												</div>
-											))}
-										</div>
-									</Button>
-								</DropdownMenuTrigger>
-								<DropdownMenuContent side='right'>
-									<DropdownMenuItem className='flex items-center gap-1' onClick={() => handleSetActiveProfile(profile)}>
-										<Lightning color='darkgoldenrod' weight='duotone' size={16} />
-										set as active
-									</DropdownMenuItem>
-									<DropdownMenuItem
-										className='flex items-center gap-1'
-										onClick={() => {
-											setIsDeleteDialogOpen(true)
-											setProfileToDelete(profile.id)
-										}}
-									>
-										<Trash color='crimson' weight='duotone' size={16} />
-										delete
-									</DropdownMenuItem>
-								</DropdownMenuContent>
-							</DropdownMenu>
-						</motion.div>
-					))}
-				</motion.div>
+				<div className='flex flex-col space-y-6'>
+					<div className='flex items-center space-x-2'>
+						<h1 className='text-2xl font-medium'>saved profiles</h1>
+						{profiles.length > 0 && (
+							<TooltipProvider>
+								<Tooltip delayDuration={300}>
+									<TooltipTrigger asChild>
+										<PlusCircle
+											onClick={() => {
+												setRequesGetInstalledApplications(true)
+												setIsCreateDialogOpen(true)
+											}}
+											weight='duotone'
+											size={24}
+											className='cursor-pointer text-zinc-400'
+										/>
+									</TooltipTrigger>
+									<TooltipContent side='right'>
+										<p>create new profile</p>
+									</TooltipContent>
+								</Tooltip>
+							</TooltipProvider>
+						)}
+					</div>
+					<motion.div className='flex flex-wrap gap-2 w-full h-full' variants={containerVariants} initial='hidden' animate='show'>
+						{profiles.map((profile) => (
+							<motion.div key={profile.emoji} variants={itemVariants}>
+								<DropdownMenu>
+									<DropdownMenuTrigger asChild>
+										<Button>
+											<span className='text-xs'>{profile.emoji}</span>•<span className='text-xs'>{profile.profile_name}</span>•
+											<div className='flex  flex-wrap items-center gap-2'>
+												{profile.selected_apps?.map((app) => (
+													<div key={app.name} className='bg-[goldenrod]/20 px-2 py-0.5 w-fit rounded-full'>
+														<p className=' text-xs'>{app.name}</p>
+													</div>
+												))}
+											</div>
+										</Button>
+									</DropdownMenuTrigger>
+									<DropdownMenuContent side='right'>
+										<DropdownMenuItem className='flex items-center gap-1' onClick={() => handleSetActiveProfile(profile)}>
+											<Lightning color='darkgoldenrod' weight='duotone' size={16} />
+											set as active
+										</DropdownMenuItem>
+										<DropdownMenuItem
+											className='flex items-center gap-1'
+											onClick={() => {
+												setIsDeleteDialogOpen(true)
+												setProfileToDelete(profile.id)
+											}}
+										>
+											<Trash color='crimson' weight='duotone' size={16} />
+											delete
+										</DropdownMenuItem>
+									</DropdownMenuContent>
+								</DropdownMenu>
+							</motion.div>
+						))}
+					</motion.div>
+				</div>
 			) : (
-				<div className='flex flex-col items-center justify-center space-y-4'>
+				<div className='flex flex-col items-center justify-center space-y-4 w-full h-full'>
 					<EmptyState message='no saved profiles' />
 					<Button
 						onClick={() => {
