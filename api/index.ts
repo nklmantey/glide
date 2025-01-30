@@ -61,7 +61,10 @@ export const saveProfile = {
 	key: ['saveProfile'],
 	fn: async (input: SupabaseProfileRow) => {
 		const { data, error } = await supabase.from('profiles').insert(input).select()
-		if (error) throw new Error(error.message)
+		if (error) {
+			console.log('RLS ERROR', JSON.stringify(error, null, 2))
+			throw new Error(error.message)
+		}
 
 		return data[0]
 	},
