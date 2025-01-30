@@ -59,7 +59,6 @@ export default function Dashboard() {
 
 	return (
 		<div className='w-full h-full max-w-4xl flex items-start justify-center flex-col gap-2'>
-			<div className='max-w-2xl'>{JSON.stringify(session, null, 4)}</div>
 			{(isFetchingUserProfilesFromDb || isPending) && (
 				<div className='bg-[darkgoldenrod]/10 w-fit rounded-lg px-2 py-0.5 flex items-center gap-2'>
 					<ArrowsClockwise weight='duotone' size={14} color='darkgoldenrod' className='animate-spin' />
