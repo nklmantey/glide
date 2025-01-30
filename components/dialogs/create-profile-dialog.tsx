@@ -99,6 +99,9 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 			setCurrentStep(1)
 			setFormState({ name: '', emoji: '', selectedApps: [] })
 		},
+		onError: (e) => {
+			toast.error(e.message)
+		},
 	})
 
 	return (
@@ -156,7 +159,7 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 				{currentStep === 3 && apps && (
 					<div className='flex flex-col items-center justify-center mt-4 space-y-4'>
 						<motion.div className='flex flex-wrap gap-2' variants={containerVariants} initial='hidden' animate='show'>
-							{isLoadingInstalledApps && <Spinner weight='duotone' />}
+							{isLoadingInstalledApps && <Spinner color='red' weight='duotone' className='animate-spin' size={16} />}
 							{apps.map((app) => (
 								<motion.div
 									key={app.path}
