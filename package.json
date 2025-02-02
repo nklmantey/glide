@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ferrucc-io/emoji-picker": "^0.0.41",
     "@hookform/resolvers": "^3.10.0",
     "@phosphor-icons/react": "^2.1.7",
     "@radix-ui/react-context-menu": "^2.2.4",

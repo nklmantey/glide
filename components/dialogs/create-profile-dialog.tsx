@@ -11,6 +11,7 @@ import { saveProfile } from '@/api'
 import { Button } from '../ui'
 import { ArrowLeft, Spinner } from '@phosphor-icons/react'
 import { motion } from 'motion/react'
+import { EmojiPicker } from '@ferrucc-io/emoji-picker'
 
 const containerVariants = {
 	hidden: { opacity: 0 },
@@ -131,20 +132,35 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 
 				{currentStep === 2 && (
 					<div className='flex flex-col items-center justify-center mt-4 space-y-4'>
-						<div className='grid grid-cols-4 gap-2'>
-							{['🚀', '🎨', '🎵', '🖌️', '💻', '🎧', '📑', '🎮'].map((emoji) => (
-								<button
-									key={emoji}
-									onClick={() => setFormState((prev) => ({ ...prev, emoji }))}
-									className={cn(
-										'saturate-200 grayscale p-2 rounded hover:bg-zinc-100',
-										formState.emoji === emoji && 'saturate-100 grayscale-0 bg-zinc-200'
-									)}
-								>
-									{emoji}
-								</button>
-							))}
-						</div>
+						<EmojiPicker
+							className='w-full rounded-[8px] border-transparent'
+							emojisPerRow={9}
+							emojiSize={36}
+							onEmojiSelect={(emoji) => {
+								const emojiString = emoji.toString()
+								if (emojiString !== formState.emoji) {
+									setFormState((prev) => ({ ...prev, emoji: emojiString }))
+								}
+							}}
+						>
+							<EmojiPicker.Header>
+								<EmojiPicker.Input
+									placeholder='search for an emoji'
+									className='h-[36px] bg-white border border-zinc-300 w-full rounded-[8px] text-[15px] focus:border-transparent focus:outline-none mb-1'
+									hideIcon
+								/>
+							</EmojiPicker.Header>
+							<EmojiPicker.Group>
+								<EmojiPicker.List hideStickyHeader containerHeight={320} />
+							</EmojiPicker.Group>
+							<EmojiPicker.Preview>
+								{({ previewedEmoji }) => (
+									<>
+										{previewedEmoji && <EmojiPicker.Content />}
+									</>
+								)}
+							</EmojiPicker.Preview>
+						</EmojiPicker>
 						<div className='flex gap-1 justify-center'>
 							<Button onClick={handlePrevStep}>
 								<ArrowLeft />
