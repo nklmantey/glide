@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog'
-import { useProfileStore, useSessionStore } from '@/store'
+import { useProfileStore } from '@/store'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { deleteProfile } from '@/api'
@@ -14,19 +14,14 @@ type DeleteProfileDialogProps = {
 
 export default function DeleteProfileDialog({ isDialogOpen, setIsDialogOpen, id }: DeleteProfileDialogProps) {
 	const { removeProfile } = useProfileStore()
-	const { session } = useSessionStore()
 
 	const { mutate: handleDeleteProfile, isPending: isDeletingProfile } = useMutation({
 		mutationKey: deleteProfile.key,
 		mutationFn: deleteProfile.fn,
 		onSuccess: () => {
 			toast.success('profile deleted!')
-
-			// SAVE TO STORE
-			removeProfile(id)
-
-			// CLEANUP
 			setIsDialogOpen(false)
+			removeProfile(id)
 		},
 	})
 
@@ -49,7 +44,6 @@ export default function DeleteProfileDialog({ isDialogOpen, setIsDialogOpen, id 
 						destructive
 					>
 						<Trash weight='duotone' size={16} />
-						{/* delete profile */}
 					</Button>
 				</div>
 			</DialogContent>
