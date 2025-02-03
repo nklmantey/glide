@@ -8,7 +8,10 @@ use cocoa::{
 };
 use objc::{class, msg_send, sel, sel_impl};
 use base64::{engine::general_purpose::STANDARD as BASE64, Engine};
-use std::process::Command;
+use std::process::{Command, Stdio};
+use sysinfo::{System, Signal};
+use std::thread::sleep;
+use std::time::Duration;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AppInfo {
@@ -71,13 +74,50 @@ async fn open_apps(app_paths: Vec<String>) -> Result<(), String> {
 }
 
 #[tauri::command]
-async fn close_apps(app_paths: Vec<String>) -> Result<(), String> {
-    for path in app_paths {
-        match Command::new("pkill").arg("-f").arg(&path).output() {
-            Ok(_) => continue,
-            Err(e) => return Err(format!("Failed to close application: {}", e)),
+async fn close_apps(app_names: Vec<String>) -> Result<(), String> {
+    let mut system = System::new_all();
+    system.refresh_all();
+
+    for app in app_names.iter() {
+        let app_display_name = app.clone();
+        let app_proc_name = format!("{}.app", app);
+
+        let apple_script = format!(r#"tell application "{}" to quit"#, app_display_name);
+        let _ = Command::new("osascript")
+            .arg("-e")
+            .arg(&apple_script)
+            .output(); // Ignoring output as it may print warnings
+
+        sleep(Duration::from_secs(3));
+        system.refresh_all();
+
+        // **Fix:** Collect process PIDs instead of borrowing processes
+        let process_pids: Vec<_> = system.processes()
+            .iter()
+            .filter(|(_, p)| p.name().to_lowercase().contains(&app_proc_name.to_lowercase()))
+            .map(|(pid, _)| *pid)
+            .collect();
+
+        if process_pids.is_empty() {
+            continue;
+        }
+
+        for pid in &process_pids {
+            if let Some(process) = system.process(*pid) {
+                process.kill_with(Signal::Term);
+            }
+        }
+
+        sleep(Duration::from_secs(2));
+        system.refresh_all();
+
+        for pid in process_pids {
+            if let Some(process) = system.process(pid) {
+                process.kill();
+            }
         }
     }
+
     Ok(())
 }
 

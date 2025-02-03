@@ -89,7 +89,7 @@ function CurrentProfile() {
 		if (activeProfile?.selected_apps) {
 			try {
 				await invoke('close_apps', {
-					appPaths: activeProfile.selected_apps.map((app: any) => app.path),
+					appNames: activeProfile.selected_apps.map((app: any) => app.name),
 				})
 			} catch (error) {
 				console.error('Failed to close apps:', error)
