@@ -172,10 +172,11 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 					</div>
 				)}
 
+
+				{currentStep === 3 && isLoadingInstalledApps && <Spinner color='crimson' weight='duotone' className='animate-spin' size={16} />}
 				{currentStep === 3 && apps && (
 					<div className='flex flex-col items-center justify-center mt-4 space-y-4'>
 						<motion.div className='flex flex-wrap gap-2' variants={containerVariants} initial='hidden' animate='show'>
-							{isLoadingInstalledApps && <Spinner color='crimson' weight='duotone' className='animate-spin' size={16} />}
 							{apps.map((app) => (
 								<motion.div
 									key={app.path}
