@@ -88,6 +88,8 @@ function CurrentProfile() {
 	const handleTurnOffProfile = async () => {
 		if (activeProfile?.selected_apps) {
 			try {
+				setActiveProfile(null)
+
 				await invoke('close_apps', {
 					appNames: activeProfile.selected_apps.map((app: any) => app.name),
 				})
@@ -95,7 +97,6 @@ function CurrentProfile() {
 				console.error('Failed to close apps:', error)
 			}
 		}
-		setActiveProfile(null)
 	}
 
 	return (

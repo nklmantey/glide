@@ -42,7 +42,6 @@ export default {
 				regular: 'var(--font-haffer-regular)',
 				semibold: 'var(--font-haffer-semibold)',
 				berkeley: 'var(--font-berkeley)',
-				geist: 'var(--font-geist)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
