@@ -186,7 +186,7 @@ function YourProfiles() {
 					<motion.div className='flex flex-wrap gap-2 w-full h-full' variants={containerVariants} initial='hidden' animate='show'>
 						{profiles.map((profile) => (
 							<motion.div key={profile.emoji} variants={itemVariants}>
-								<DropdownMenu>
+								<DropdownMenu modal={false}>
 									<DropdownMenuTrigger asChild>
 										<Button>
 											<span className='text-xs'>{profile.emoji}</span>•<span className='text-xs'>{profile.profile_name}</span>•

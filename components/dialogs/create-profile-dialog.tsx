@@ -153,13 +153,7 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 							<EmojiPicker.Group>
 								<EmojiPicker.List hideStickyHeader containerHeight={320} />
 							</EmojiPicker.Group>
-							<EmojiPicker.Preview>
-								{({ previewedEmoji }) => (
-									<>
-										{previewedEmoji && <EmojiPicker.Content />}
-									</>
-								)}
-							</EmojiPicker.Preview>
+							<EmojiPicker.Preview>{({ previewedEmoji }) => <>{previewedEmoji && <EmojiPicker.Content />}</>}</EmojiPicker.Preview>
 						</EmojiPicker>
 						<div className='flex gap-1 justify-center'>
 							<Button onClick={handlePrevStep}>
@@ -207,7 +201,6 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 										profile_name: formState.name,
 										emoji: formState.emoji,
 										selected_apps: formState.selectedApps,
-										user_id: session?.user.id!,
 									})
 								}}
 								isLoading={isSavingProfile}

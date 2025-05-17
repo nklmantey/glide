@@ -12,7 +12,6 @@ export type FormState = {
 }
 
 export type SupabaseProfileRow = {
-	user_id: string
 	profile_name: string
 	emoji: string
 	selected_apps: AppInfo[]
