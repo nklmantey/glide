@@ -33,7 +33,12 @@ export function ProfileCard({ profile, isActive, onSetActive, onDelete }: Profil
 	return (
 		<DropdownMenu modal={false}>
 			<DropdownMenuTrigger asChild>
-				<div className='group hover:border-zinc-300 hover:cursor-pointer transition-all duration-500 flex flex-col items-start justify-start border w-full p-4 gap-4 rounded-lg relative bg-white shadow-sm hover:shadow-md'>
+				<div
+					className={cn(
+						'group hover:cursor-pointer transition-all duration-500 flex flex-col items-start justify-start border w-full p-4 gap-4 rounded-lg relative bg-white shadow-sm hover:shadow-md',
+						isActive ? 'border border-[green]/50' : 'hover:border-zinc-300'
+					)}
+				>
 					{isActive && (
 						<div className='absolute -top-1.5 -right-1.5'>
 							<span className='flex h-3 w-3'>
@@ -51,7 +56,9 @@ export function ProfileCard({ profile, isActive, onSetActive, onDelete }: Profil
 						</div>
 						{profile.selected_apps.length > 0 && (
 							<div className='flex items-center gap-2 bg-zinc-100 px-2 py-1 rounded'>
-								<span className='text-xs text-zinc-500'>{profile.selected_apps.length} apps</span>
+								<span className='text-xs text-zinc-500'>
+									{profile.selected_apps.length} {profile.selected_apps.length === 1 ? 'app' : 'apps'}
+								</span>
 							</div>
 						)}
 					</div>
