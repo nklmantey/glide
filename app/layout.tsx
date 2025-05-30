@@ -8,23 +8,28 @@ import { Toaster } from 'sonner'
 import { CheckCircle, WarningCircle, Info } from '@phosphor-icons/react/dist/ssr'
 
 const berkeley = localFont({
-	src: '../public/assets/fonts/Berkeley.otf',
+	src: '.fonts/Berkeley.otf',
 	variable: '--font-berkeley',
 })
 
-const hafferBold = localFont({
-	src: '../public/assets/fonts/Haffer-Bold.woff2',
-	variable: '--font-haffer-bold',
+const cerealLight = localFont({
+	src: './fonts/AirbnbCereal_W_Lt.otf',
+	variable: '--font-lausanne-light',
 })
 
-const hafferRegular = localFont({
-	src: '../public/assets/fonts/Haffer-Regular.woff2',
-	variable: '--font-haffer-regular',
+const cerealRegular = localFont({
+	src: './fonts/AirbnbCereal_W_Bk.otf',
+	variable: '--font-lausanne-regular',
 })
 
-const hafferSemibold = localFont({
-	src: '../public/assets/fonts/Haffer-Semibold.woff2',
-	variable: '--font-haffer-semibold',
+const cerealMedium = localFont({
+	src: './fonts/AirbnbCereal_W_Md.otf',
+	variable: '--font-lausanne-medium',
+})
+
+const cerealBold = localFont({
+	src: './fonts/AirbnbCereal_W_Bd.otf',
+	variable: '--font-lausanne-bold',
 })
 
 export const metadata: Metadata = {
@@ -42,9 +47,10 @@ export default function RootLayout({
 			<body
 				className={cn(
 					berkeley.variable,
-					hafferRegular.className,
-					hafferBold.variable,
-					hafferSemibold.variable,
+					cerealLight.variable,
+					cerealRegular.className,
+					cerealMedium.variable,
+					cerealBold.variable,
 					'antialiased min-h-screen w-screen text-[12px] md:text-sm tracking-tight bg-[#f9f9f9]'
 				)}
 			>
