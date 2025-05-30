@@ -61,6 +61,7 @@ export default function RegisterForm() {
 					type='password'
 					required
 					placeholder='your password'
+					isPassword
 					{...register('password')}
 					isInvalid={!!errors?.password}
 					error={errors?.password?.message}

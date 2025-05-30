@@ -89,6 +89,7 @@ export default function LoginForm() {
 					required
 					placeholder='your password'
 					{...register('password')}
+					isPassword
 					isInvalid={!!errors?.password}
 					error={errors?.password?.message}
 				/>
