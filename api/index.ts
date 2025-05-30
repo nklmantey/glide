@@ -92,3 +92,15 @@ export const getUserProfiles = {
 		return data
 	},
 }
+
+export const updateUserInformation = {
+	key: ['updateUserInformation'],
+	fn: async ({ name }: { name: string }) => {
+		const { data, error } = await supabase.auth.updateUser({
+			data: { name },
+		})
+		if (error) throw new Error(error.message)
+
+		return data
+	},
+}
