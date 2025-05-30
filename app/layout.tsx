@@ -8,7 +8,7 @@ import { Toaster } from 'sonner'
 import { CheckCircle, WarningCircle, Info } from '@phosphor-icons/react/dist/ssr'
 
 const berkeley = localFont({
-	src: '.fonts/Berkeley.otf',
+	src: './fonts/Berkeley.otf',
 	variable: '--font-berkeley',
 })
 
