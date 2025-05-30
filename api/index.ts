@@ -68,10 +68,7 @@ export const saveProfile = {
 			.insert({ ...input, user_id: session?.user?.id })
 			.select()
 
-		if (error) {
-			console.log('RLS ERROR', JSON.stringify(error, null, 2))
-			throw new Error(error.message)
-		}
+		if (error) throw new Error(error.message)
 
 		return data[0]
 	},

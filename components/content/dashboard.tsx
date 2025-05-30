@@ -1,5 +1,5 @@
 import { BorderBeam } from '../ui/border-beam'
-import { Button } from '@/components/ui/button'
+import { Button, ProfileCard } from '@/components/ui'
 import { motion } from 'motion/react'
 import { ArrowsClockwise, Lightning, LightningSlash, PlusCircle, Trash } from '@phosphor-icons/react'
 import EmptyState from '../global/empty-state'
@@ -12,7 +12,6 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { invoke } from '@tauri-apps/api/tauri'
 import { OrbitingCircles } from '../ui/orbiting-circles'
 import Image from 'next/image'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
 
 const containerVariants = {
 	hidden: { opacity: 0 },
@@ -142,25 +141,12 @@ function YourProfiles() {
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 	const [profileToDelete, setProfileToDelete] = useState('')
 
-	const handleSetActiveProfile = async (profile: any) => {
-		setActiveProfile(profile)
-		if (profile.selected_apps) {
-			try {
-				await invoke('open_apps', {
-					appPaths: profile.selected_apps.map((app: any) => app.path),
-				})
-			} catch (error) {
-				console.error('Failed to open apps:', error)
-			}
-		}
-	}
-
 	return (
 		<div className='flex flex-col items-center justify-start text-center space-y-6 relative w-full h-full'>
 			{/* SAVED PROFILES LIST */}
 			{profiles.length > 0 ? (
-				<div className='flex flex-col space-y-6'>
-					<div className='flex items-center space-x-2'>
+				<div className='flex flex-col space-y-6 w-full'>
+					<div className='flex items-center justify-start flex-1 space-x-2'>
 						<h1 className='text-2xl font-medium'>saved profiles</h1>
 						{profiles.length > 0 && (
 							<TooltipProvider>
@@ -185,41 +171,16 @@ function YourProfiles() {
 					</div>
 					<motion.div className='flex flex-wrap gap-2 w-full h-full' variants={containerVariants} initial='hidden' animate='show'>
 						{profiles.map((profile) => (
-							<motion.div key={profile.emoji} variants={itemVariants}>
-								<DropdownMenu modal={false}>
-									<DropdownMenuTrigger asChild>
-										<Button>
-											<span className='text-xs'>{profile.emoji}</span>•<span className='text-xs'>{profile.profile_name}</span>•
-											<div className='flex  flex-wrap items-center gap-2'>
-												{profile.selected_apps?.map((app) => (
-													<div key={app.name} className='bg-[goldenrod]/20 px-2 py-0.5 w-fit rounded-full'>
-														<p className=' text-xs'>{app.name}</p>
-													</div>
-												))}
-											</div>
-										</Button>
-									</DropdownMenuTrigger>
-									<DropdownMenuContent side='right'>
-										<DropdownMenuItem
-											className='flex items-center gap-1 data-[disabled]:opacity-50'
-											onClick={() => handleSetActiveProfile(profile)}
-											disabled={activeProfile?.id === profile.id}
-										>
-											<Lightning color='darkgoldenrod' weight='duotone' size={16} />
-											{activeProfile?.id === profile.id ? 'currently active' : 'set as active'}
-										</DropdownMenuItem>
-										<DropdownMenuItem
-											className='flex items-center gap-1'
-											onClick={() => {
-												setIsDeleteDialogOpen(true)
-												setProfileToDelete(profile.id)
-											}}
-										>
-											<Trash color='crimson' weight='duotone' size={16} />
-											delete
-										</DropdownMenuItem>
-									</DropdownMenuContent>
-								</DropdownMenu>
+							<motion.div key={profile.emoji} variants={itemVariants} className='w-full'>
+								<ProfileCard
+									profile={profile}
+									isActive={activeProfile?.id === profile.id}
+									onSetActive={setActiveProfile}
+									onDelete={(id) => {
+										setIsDeleteDialogOpen(true)
+										setProfileToDelete(id)
+									}}
+								/>
 							</motion.div>
 						))}
 					</motion.div>
