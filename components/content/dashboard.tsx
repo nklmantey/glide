@@ -66,13 +66,13 @@ export default function Dashboard() {
 			)}
 			<div className='w-full h-full grid grid-cols-2 max-w-4xl gap-[2px]'>
 				{/* ACTIVE PROFILE */}
-				<div className='relative col-span-1 row-span-1 border border-zinc-200 p-4 bg-white rounded-xl overflow-hidden'>
+				<div className='relative col-span-1 row-span-1 border border-zinc-200 dark:border-zinc-800 p-4 bg-white dark:bg-zinc-900 rounded-xl overflow-hidden'>
 					<CurrentProfile />
 					<BorderBeam size={400} duration={15} delay={0} borderWidth={2.5} />
 				</div>
 
 				{/* PROFILES OVERVIEW */}
-				<div className='relative col-span-1 row-span-1 border border-zinc-200 p-4 bg-white rounded-xl'>
+				<div className='relative col-span-1 row-span-1 border border-zinc-200 dark:border-zinc-800 p-4 bg-white dark:bg-zinc-900 rounded-xl'>
 					<YourProfiles />
 					<BorderBeam size={400} duration={15} delay={4} borderWidth={2.5} />
 				</div>

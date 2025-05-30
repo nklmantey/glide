@@ -72,7 +72,9 @@ export default function RegisterForm() {
 						create account
 					</Button>
 					<Link href='/auth/login'>
-						<p className='underline'>log in instead</p>
+						<p className='underline text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors'>
+							log in instead
+						</p>
 					</Link>
 				</div>
 			</div>

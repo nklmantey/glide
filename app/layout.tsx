@@ -6,6 +6,7 @@ import { AuthWrapper } from '@/components/layouts'
 import TanstackProvider from '@/providers/tanstack'
 import { Toaster } from 'sonner'
 import { CheckCircle, WarningCircle, Info } from '@phosphor-icons/react/dist/ssr'
+import { ThemeProvider } from 'next-themes'
 
 const berkeley = localFont({
 	src: './fonts/Berkeley.otf',
@@ -43,7 +44,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='en' suppressHydrationWarning suppressContentEditableWarning>
 			<body
 				className={cn(
 					berkeley.variable,
@@ -51,21 +52,23 @@ export default function RootLayout({
 					cerealRegular.className,
 					cerealMedium.variable,
 					cerealBold.variable,
-					'antialiased min-h-screen w-screen text-[12px] md:text-sm tracking-tight bg-[#f9f9f9]'
+					'antialiased min-h-screen w-screen text-[12px] md:text-sm tracking-tight bg-[#f9f9f9] dark:bg-zinc-900'
 				)}
 			>
-				<TanstackProvider>
-					<Toaster
-						richColors
-						icons={{
-							success: <CheckCircle weight='duotone' color='green' size={16} />,
-							error: <WarningCircle weight='duotone' color='crimson' size={16} />,
-							info: <Info weight='duotone' color='cornflowerblue' size={16} />,
-						}}
-						className='font-regular tracking-normal'
-					/>
-					<AuthWrapper>{children}</AuthWrapper>
-				</TanstackProvider>
+				<ThemeProvider attribute='class'>
+					<TanstackProvider>
+						<Toaster
+							richColors
+							icons={{
+								success: <CheckCircle weight='duotone' color='green' size={16} />,
+								error: <WarningCircle weight='duotone' color='crimson' size={16} />,
+								info: <Info weight='duotone' color='cornflowerblue' size={16} />,
+							}}
+							className='font-regular tracking-normal'
+						/>
+						<AuthWrapper>{children}</AuthWrapper>
+					</TanstackProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	)

@@ -60,15 +60,15 @@ export default function LoginForm() {
 		<form onSubmit={handleSubmit(onSubmit)}>
 			{isNewUser && !isEmailVerified && (
 				<div className='flex flex-col items-center gap-2 mb-4'>
-					<div className='bg-[cornflowerblue]/20 w-fit rounded-full px-2 py-1 flex items-center gap-2'>
+					<div className='bg-[cornflowerblue]/20 dark:bg-[cornflowerblue]/10 w-fit rounded-full px-2 py-1 flex items-center gap-2'>
 						<Info weight='duotone' size={16} color='cornflowerblue' />
-						<p className='text-zinc-500'>check your email for a one-time verification code</p>
+						<p className='text-zinc-500 dark:text-zinc-400'>check your email for a one-time verification code</p>
 					</div>
 
 					<OtpInput onComplete={(d) => handleVerifyUserEmail({ email: userEmailForVerification!, otp: d })} />
 
 					{isVerifyingOtp && (
-						<div className='flex items-center gap-2'>
+						<div className='flex items-center gap-2 text-zinc-500 dark:text-zinc-400'>
 							<Spinner weight='duotone' size={16} className='animate-spin' />
 							verifying...
 						</div>
@@ -99,7 +99,9 @@ export default function LoginForm() {
 						log in
 					</Button>
 					<Link href='/auth/register'>
-						<p className='underline'>create account instead</p>
+						<p className='underline text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors'>
+							create account instead
+						</p>
 					</Link>
 				</div>
 			</div>

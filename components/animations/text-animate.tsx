@@ -313,7 +313,6 @@ export function TextAnimate({
 }: TextAnimateProps) {
 	const MotionComponent = motion.create(Component)
 
-	// Use provided variants or default variants based on animation type
 	const finalVariants = animation
 		? {
 				container: {

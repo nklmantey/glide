@@ -16,3 +16,15 @@ export type SupabaseProfileRow = {
 	emoji: string
 	selected_apps: AppInfo[]
 }
+
+export type ProfileCardProps = {
+	profile: {
+		id: string
+		emoji: string
+		profile_name: string
+		selected_apps: AppInfo[]
+	}
+	isActive: boolean
+	onSetActive: (profile: any) => void
+	onDelete: (id: string) => void
+}

@@ -54,10 +54,15 @@ export function ExpandableTabs({ tabs, className, activeColor = 'text-primary', 
 		onChange?.(index)
 	}
 
-	const Separator = () => <div className='mx-1 h-[24px] w-[1.2px] bg-zinc-300' aria-hidden='true' />
+	const Separator = () => <div className='mx-1 h-[24px] w-[1.2px] bg-zinc-300 dark:bg-zinc-600' aria-hidden='true' />
 
 	return (
-		<div className={cn('flex flex-wrap items-center gap-2 rounded-lg border border-zinc-200 w-fit bg-zinc-100 p-1 shadow-sm', className)}>
+		<div
+			className={cn(
+				'flex flex-wrap items-center gap-2 rounded-lg border border-zinc-200 dark:border-zinc-700 w-fit bg-zinc-100 dark:bg-zinc-800/50 p-1 shadow-sm',
+				className
+			)}
+		>
 			{tabs.map((tab, index) => {
 				if (tab.type === 'separator') {
 					return <Separator key={`separator-${index}`} />
@@ -75,13 +80,15 @@ export function ExpandableTabs({ tabs, className, activeColor = 'text-primary', 
 						transition={transition}
 						className={cn(
 							'relative flex items-center rounded-md px-2 py-1 font-medium transition-colors duration-300',
-							activeTab === index ? cn('bg-zinc-200/80', activeColor) : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+							activeTab === index
+								? cn('bg-zinc-200 dark:bg-zinc-700', activeColor)
+								: 'text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200/50 dark:hover:bg-zinc-700/50 hover:text-zinc-700 dark:hover:text-zinc-300'
 						)}
 					>
 						<Icon
 							size={20}
 							weight={activeTab === index ? 'fill' : 'regular'}
-							className={cn(activeTab === index ? 'text-zinc-500' : null)}
+							className={cn(activeTab === index ? 'text-zinc-500 dark:text-zinc-300' : 'text-zinc-500 dark:text-zinc-400')}
 						/>
 						<AnimatePresence initial={false}>
 							{activeTab === index && (
@@ -91,7 +98,7 @@ export function ExpandableTabs({ tabs, className, activeColor = 'text-primary', 
 									animate='animate'
 									exit='exit'
 									transition={transition}
-									className={cn('overflow-hidden', activeTab === index ? 'text-zinc-500' : null)}
+									className={cn('overflow-hidden', activeTab === index ? 'text-zinc-500 dark:text-zinc-300' : null)}
 								>
 									<p className='font-hbold text-lg'>{tab.title}</p>
 								</motion.span>

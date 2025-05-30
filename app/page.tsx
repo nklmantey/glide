@@ -21,7 +21,6 @@ export default function OnboardingPage() {
 		router.push('/auth/login')
 	}
 
-	// Exit animation variants
 	const fallDownVariants = {
 		initial: { y: 0, opacity: 1 },
 		exit: {
