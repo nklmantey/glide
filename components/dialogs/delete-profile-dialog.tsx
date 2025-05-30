@@ -32,25 +32,25 @@ export default function DeleteProfileDialog({ isDialogOpen, setIsDialogOpen, id 
 		<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
 			<DialogContent className='sm:max-w-[425px]'>
 				<DialogHeader>
-					<DialogTitle></DialogTitle>
+					<DialogTitle className='text-zinc-800 dark:text-white'></DialogTitle>
 				</DialogHeader>
 
 				<div className='flex flex-col items-center justify-center gap-2 py-4 text-center'>
 					<div className='flex items-center justify-center gap-2'>
-						<WarningCircle className='text-red-600' weight='duotone' size={20} />
-						<p className='text-[crimson]'>are you sure you want to delete</p>
+						<WarningCircle className='text-red-600 dark:text-red-500' weight='duotone' size={20} />
+						<p className='text-[crimson] dark:text-red-400'>are you sure you want to delete</p>
 					</div>
-					<div className='flex items-center gap-2 bg-zinc-100 px-2 py-1 rounded w-fit self-center'>
-						<span className='text-sm text-zinc-900'>
+					<div className='flex items-center gap-2 bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded w-fit self-center'>
+						<span className='text-sm text-zinc-900 dark:text-white'>
 							{profileToDelete.emoji} {profileToDelete.profile_name}
 						</span>
 					</div>
-					<p className='text-sm text-zinc-500 mt-2'>
+					<p className='text-sm text-zinc-500 dark:text-zinc-400 mt-2'>
 						this action cannot be undone and will permanently delete this profile and its settings.
 					</p>
 				</div>
 
-				<div className='flex w-full justify-center gap-2 border-t pt-4'>
+				<div className='flex w-full justify-center gap-2 border-t border-zinc-200 dark:border-zinc-700 pt-4'>
 					<Button onClick={() => setIsDialogOpen(false)}>cancel</Button>
 					<Button onClick={() => handleDeleteProfile({ profileId: id })} isLoading={isDeletingProfile} destructive>
 						{!isDeletingProfile && <Trash weight='duotone' size={16} />}

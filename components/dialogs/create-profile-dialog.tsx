@@ -109,7 +109,7 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 		<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
 			<DialogContent className='sm:max-w-[525px]'>
 				<DialogHeader>
-					<DialogTitle>
+					<DialogTitle className='text-zinc-800 dark:text-white'>
 						{currentStep === 1 && 'choose a name for your profile'}
 						{currentStep === 2 && 'choose an emoji'}
 						{currentStep === 3 && 'add your apps'}
@@ -117,12 +117,12 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 				</DialogHeader>
 
 				{currentStep === 1 && (
-					<div className='flex flex-col items-center justify-center mt-4 space-y-4'>
+					<div className='flex flex-col items-center justify-center mt-4 space-y-4 w-full'>
 						<Input
 							placeholder='profile name'
 							value={formState.name}
 							onChange={(e) => setFormState((prev) => ({ ...prev, name: e.target.value }))}
-							className='min-w-full'
+							className='w-full'
 						/>
 						<Button onClick={handleNextStep} disabled={!formState.name}>
 							next
@@ -146,7 +146,7 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 							<EmojiPicker.Header>
 								<EmojiPicker.Input
 									placeholder='search for an emoji'
-									className='h-[36px] bg-white border border-zinc-300 w-full rounded-[8px] text-[15px] focus:border-transparent focus:outline-none mb-1'
+									className='h-[36px] bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 w-full rounded-[8px] text-[15px] focus:border-transparent focus:outline-none mb-1 dark:text-white dark:placeholder:text-zinc-500'
 									hideIcon
 								/>
 							</EmojiPicker.Header>
@@ -178,16 +178,16 @@ export default function CreateProfileDialog({ requesGetInstalledApplications, is
 									className={cn(
 										'flex items-center px-2 py-1 rounded gap-2 cursor-pointer',
 										formState.selectedApps.some((selectedApp) => selectedApp.path === app.path)
-											? 'bg-[green]/10 ring-1 ring-[green]'
-											: 'bg-zinc-100 hover:bg-zinc-200'
+											? 'bg-[green]/10 dark:bg-[green]/15 ring-1 ring-[green]/50 dark:ring-[green]/30'
+											: 'bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700'
 									)}
 								>
 									{app.icon ? (
 										<img src={app.icon} alt={`${app.name} icon`} className='w-4 h-4' />
 									) : (
-										<div className='w-4 h-4 bg-zinc-200 rounded' />
+										<div className='w-4 h-4 bg-zinc-200 dark:bg-zinc-600 rounded' />
 									)}
-									<span className='text-sm text-zinc-700'>{app.name}</span>
+									<span className='text-sm text-zinc-700 dark:text-zinc-300'>{app.name}</span>
 								</motion.div>
 							))}
 						</motion.div>
