@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase/client'
 import { LoginInputType, RegisterInputType, VerifyOtpInputType } from '@/schemas'
+import { useSessionStore } from '@/store'
 import { SupabaseProfileRow } from '@/types'
 
 export const registerUser = {
@@ -60,8 +61,17 @@ export const logoutUser = {
 export const saveProfile = {
 	key: ['saveProfile'],
 	fn: async (input: SupabaseProfileRow) => {
-		const { data, error } = await supabase.from('profiles').insert(input).select()
-		if (error) throw new Error(error.message)
+		const { session } = useSessionStore.getState()
+
+		const { data, error } = await supabase
+			.from('profiles')
+			.insert({ ...input, user_id: session?.user?.id })
+			.select()
+
+		if (error) {
+			console.log('RLS ERROR', JSON.stringify(error, null, 2))
+			throw new Error(error.message)
+		}
 
 		return data[0]
 	},
