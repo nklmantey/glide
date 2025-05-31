@@ -1,7 +1,7 @@
 import { BorderBeam } from '../ui/border-beam'
 import { Button, ProfileCard } from '@/components/ui'
 import { motion } from 'motion/react'
-import { ArrowsClockwise, Lightning, LightningSlash, PlusCircle, Trash } from '@phosphor-icons/react'
+import { Spinner, LightningSlash, PlusCircle } from '@phosphor-icons/react'
 import EmptyState from '../global/empty-state'
 import { useQuery } from '@tanstack/react-query'
 import { getUserProfiles } from '@/api'
@@ -44,12 +44,12 @@ export default function Dashboard() {
 
 	const {
 		data: userProfilesFromDb,
-		isLoading: isFetchingUserProfilesFromDb,
-		isPending,
+		isPending: isFetchingUserProfilesFromDb,
+		isRefetching,
+		refetch: fetchUserProfilesFromDb,
 	} = useQuery({
 		queryKey: getUserProfiles.key,
 		queryFn: () => getUserProfiles.fn({ id: session?.user.id! }),
-		refetchInterval: 3600000, // 1 hour
 	})
 
 	useEffect(() => {
@@ -58,12 +58,15 @@ export default function Dashboard() {
 
 	return (
 		<div className='w-full h-full max-w-4xl flex items-start justify-center flex-col gap-2'>
-			{(isFetchingUserProfilesFromDb || isPending) && (
-				<div className='bg-[darkgoldenrod]/10 w-fit rounded-lg px-2 py-0.5 flex items-center gap-2'>
-					<ArrowsClockwise weight='duotone' size={14} color='darkgoldenrod' className='animate-spin' />
-					<p className='text-[darkgoldenrod] text-xs'>sync in progress</p>
+			{isFetchingUserProfilesFromDb || isRefetching ? (
+				<div className='bg-[darkgoldenrod]/10 w-fit rounded-md px-2 py-0.5 flex items-center gap-1'>
+					<Spinner weight='bold' size={14} color='darkgoldenrod' className='animate-spin' />
+					<p className='text-[darkgoldenrod] text-xs font-hbold'>sync in progress</p>
 				</div>
+			) : (
+				<Button onClick={() => fetchUserProfilesFromDb()}>sync</Button>
 			)}
+
 			<div className='w-full h-full grid grid-cols-2 max-w-4xl gap-[2px]'>
 				{/* ACTIVE PROFILE */}
 				<div className='relative col-span-1 row-span-1 border border-zinc-200 dark:border-zinc-800 p-4 bg-white dark:bg-zinc-900 rounded-xl overflow-hidden'>

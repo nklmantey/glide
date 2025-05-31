@@ -55,7 +55,7 @@ export default function RootLayout({
 					'antialiased min-h-screen w-screen text-[12px] md:text-sm tracking-tight bg-[#f9f9f9] dark:bg-zinc-900'
 				)}
 			>
-				<ThemeProvider attribute='class'>
+				<ThemeProvider attribute='class' defaultTheme='light'>
 					<TanstackProvider>
 						<Toaster
 							richColors

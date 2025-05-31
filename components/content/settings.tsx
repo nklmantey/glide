@@ -214,6 +214,8 @@ function Appearance() {
 	const { theme, setTheme } = useThemeStore()
 	const { setTheme: setNextTheme } = useTheme()
 
+	console.log('theme from store', theme)
+
 	useEffect(() => {
 		setNextTheme(theme)
 	}, [])
@@ -243,7 +245,7 @@ function Appearance() {
 	return (
 		<div className='flex flex-col gap-8 max-w-2xl'>
 			<div className='flex flex-col gap-6'>
-				<div className='flex items-center justify-between border-b pb-4'>
+				<div className='flex items-center justify-between border-b border-zinc-200 dark:border-zinc-700 pb-4'>
 					<h3 className='font-hbold text-zinc-800 dark:text-white'>appearance</h3>
 					<p className='text-sm text-zinc-500 dark:text-zinc-400'>customize how glide looks on your device</p>
 				</div>
