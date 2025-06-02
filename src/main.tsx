@@ -6,7 +6,6 @@ import TanstackProvider from '@/providers/tanstack'
 import { Toaster } from 'sonner'
 import { CheckCircleIcon, WarningCircleIcon, InfoIcon } from '@phosphor-icons/react'
 import { ThemeProvider } from 'next-themes'
-// import { ProfilesProvider } from '@/contexts/ProfilesContext'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
