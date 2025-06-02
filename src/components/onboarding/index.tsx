@@ -11,6 +11,7 @@ export function OnboardingFlow() {
 	const navigate = useNavigate()
 	const { setIsOnboardingCompleted } = useOnboardingStore()
 	const [currentStep, setCurrentStep] = useState(0)
+	const [isExiting, setIsExiting] = useState(false)
 
 	// MOTION VARIANTS
 	const fallDownVariants = {
@@ -23,10 +24,21 @@ export function OnboardingFlow() {
 		enter: { y: 0, opacity: 1, transition: { duration: 1, ease: 'easeInOut' } },
 	}
 
+	const containerVariants = {
+		exit: {
+			opacity: 0,
+			scale: 0.95,
+			transition: { duration: 0.5, ease: 'easeInOut' },
+		},
+	}
+
 	function handleOnboardingFlowForward() {
 		if (currentStep === onboardingList.length - 1) {
-			setIsOnboardingCompleted(true)
-			navigate('/auth/register')
+			setIsExiting(true)
+			setTimeout(() => {
+				setIsOnboardingCompleted(true)
+				navigate('/auth/register')
+			}, 600)
 			return
 		}
 
@@ -38,8 +50,21 @@ export function OnboardingFlow() {
 		setCurrentStep((prev) => prev - 1)
 	}
 
+	function handleSkip() {
+		setIsExiting(true)
+		setTimeout(() => {
+			setIsOnboardingCompleted(true)
+			navigate('/auth/register')
+		}, 600)
+	}
+
 	return (
-		<div className='flex flex-col gap-8'>
+		<motion.div className='flex flex-col gap-8' variants={containerVariants} animate={isExiting ? 'exit' : 'enter'}>
+			<div className='flex justify-end w-full'>
+				<Button onClick={handleSkip} className='text-zinc-500 hover:text-zinc-300 transition-colors bg-transparent'>
+					skip
+				</Button>
+			</div>
 			<AnimatePresence mode='popLayout'>
 				{onboardingList.map((item) =>
 					item.id === currentStep ? (
@@ -90,6 +115,6 @@ export function OnboardingFlow() {
 					) : null
 				)}
 			</AnimatePresence>
-		</div>
+		</motion.div>
 	)
 }
