@@ -3,17 +3,13 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { useOnboardingStore } from '@/store'
 import { useNavigate } from 'react-router'
-import { TextAnimate } from '@/components/animations'
 import { Button } from '@/components/ui'
-import { ArrowLeftIcon } from '@phosphor-icons/react'
 
 export function OnboardingFlow() {
 	const navigate = useNavigate()
 	const { setIsOnboardingCompleted } = useOnboardingStore()
-	const [currentStep, setCurrentStep] = useState(0)
 	const [isExiting, setIsExiting] = useState(false)
 
-	// MOTION VARIANTS
 	const fallDownVariants = {
 		initial: { y: 0, opacity: 1 },
 		exit: {
@@ -32,25 +28,7 @@ export function OnboardingFlow() {
 		},
 	}
 
-	function handleOnboardingFlowForward() {
-		if (currentStep === onboardingList.length - 1) {
-			setIsExiting(true)
-			setTimeout(() => {
-				setIsOnboardingCompleted(true)
-				navigate('/auth/register')
-			}, 600)
-			return
-		}
-
-		setCurrentStep((prev) => prev + 1)
-	}
-
-	function handleOnboardingFlowBack() {
-		if (currentStep === 0) return
-		setCurrentStep((prev) => prev - 1)
-	}
-
-	function handleSkip() {
+	function handleContinue() {
 		setIsExiting(true)
 		setTimeout(() => {
 			setIsOnboardingCompleted(true)
@@ -60,60 +38,53 @@ export function OnboardingFlow() {
 
 	return (
 		<motion.div className='flex flex-col gap-8' variants={containerVariants} animate={isExiting ? 'exit' : 'enter'}>
-			<div className='flex justify-end w-full'>
-				<Button onClick={handleSkip} className='text-zinc-500 hover:text-zinc-300 transition-colors bg-transparent'>
-					skip
-				</Button>
-			</div>
 			<AnimatePresence mode='popLayout'>
-				{onboardingList.map((item) =>
-					item.id === currentStep ? (
-						<motion.div
-							key={item.id}
-							variants={fallDownVariants}
-							initial='initial'
-							animate='enter'
-							exit='exit'
-							className='flex flex-col gap-4'
-						>
-							<motion.div
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ duration: 1, delay: 1.5, ease: 'easeInOut' }}
-								className='flex flex-col gap-2'
-							>
-								<div className='w-8 h-8 flex items-center justify-center bg-[#212427] font-hbold text-zinc-200 rounded-full'>
-									{item.id + 1}
-								</div>
-								<p className='font-hbold '>{item.title}</p>
-							</motion.div>
+				<motion.div
+					key='welcome'
+					variants={fallDownVariants}
+					initial='initial'
+					animate='enter'
+					exit='exit'
+					className='flex flex-col gap-6 max-w-2xl mx-auto'
+				>
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{
+							duration: 1.5,
+							ease: [0.22, 1, 0.36, 1],
+						}}
+						className='flex flex-col gap-2'
+					>
+						<p className='font-hbold text-xl'>{onboardingList[0].title}</p>
+					</motion.div>
 
-							<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 3, delay: 2, ease: 'easeInOut' }}>
-								<TextAnimate key={currentStep} className='max-w-2xl text-pretty text-zinc-500' animation='blurInUp' by='character'>
-									{item.description}
-								</TextAnimate>
-							</motion.div>
+					<motion.p
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{
+							duration: 2,
+							ease: [0.22, 1, 0.36, 1],
+							delay: 0.8,
+						}}
+						className='text-base text-zinc-500 leading-relaxed'
+					>
+						{onboardingList[0].description}
+					</motion.p>
 
-							<motion.div
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ duration: 1, delay: 5.5, ease: 'easeInOut' }}
-								className='self-center mt-4'
-							>
-								<div className='flex gap-1'>
-									{currentStep !== 0 && (
-										<Button onClick={handleOnboardingFlowBack}>
-											<ArrowLeftIcon />
-										</Button>
-									)}
-									<Button onClick={handleOnboardingFlowForward}>
-										{currentStep === onboardingList.length - 1 ? 'hop in!' : 'continue'}
-									</Button>
-								</div>
-							</motion.div>
-						</motion.div>
-					) : null
-				)}
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{
+							duration: 1.2,
+							delay: 2.5,
+							ease: [0.22, 1, 0.36, 1],
+						}}
+						className='self-center mt-4'
+					>
+						<Button onClick={handleContinue}>hop in!</Button>
+					</motion.div>
+				</motion.div>
 			</AnimatePresence>
 		</motion.div>
 	)
