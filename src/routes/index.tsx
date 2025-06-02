@@ -8,20 +8,17 @@ import { AuthWrapper } from '@/components/layouts'
 export function Router() {
 	return (
 		<BrowserRouter>
-			<Routes>
-				<Route index element={<App />} />
-				<Route path='auth/login' element={<LoginPage />} />
-				<Route path='auth/register' element={<RegisterPage />} />
+			<AuthWrapper>
+				<Routes>
+					<Route path='/' element={<App />} />
+					<Route path='auth'>
+						<Route path='login' element={<LoginPage />} />
+						<Route path='register' element={<RegisterPage />} />
+					</Route>
 
-				<Route
-					path='dashboard'
-					element={
-						<AuthWrapper>
-							<DashboardPage />
-						</AuthWrapper>
-					}
-				/>
-			</Routes>
+					<Route path='dashboard' element={<DashboardPage />} />
+				</Routes>
+			</AuthWrapper>
 		</BrowserRouter>
 	)
 }
