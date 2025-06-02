@@ -8,7 +8,7 @@ use cocoa::{
 };
 use objc::{class, msg_send, sel, sel_impl};
 use base64::{engine::general_purpose::STANDARD as BASE64, Engine};
-use std::process::{Command, Stdio};
+use std::process::{Command};
 use sysinfo::{System, Signal};
 use std::thread::sleep;
 use std::time::Duration;
