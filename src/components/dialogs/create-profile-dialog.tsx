@@ -90,10 +90,8 @@ export function CreateProfileDialog({ requesGetInstalledApplications, isDialogOp
 		onSuccess: (data) => {
 			toast.success('profile created!')
 
-			// SAVE TO STORE
 			addProfile(data)
 
-			// CLEANUP
 			setIsDialogOpen(false)
 			setCurrentStep(1)
 			setFormState({ name: '', emoji: '', selectedApps: [] })
