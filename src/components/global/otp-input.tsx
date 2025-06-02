@@ -22,7 +22,7 @@ export default function OtpInput({ onComplete, autoFocus = true }: OtpInputProps
 
 					<MinusIcon size={16} className='text-zinc-400' />
 
-					<div className='pflex'>
+					<div className='flex'>
 						{slots.slice(3).map((slot, idx) => (
 							<Slot key={idx} {...slot} />
 						))}
@@ -40,7 +40,7 @@ function Slot(props: SlotProps) {
 	return (
 		<div
 			className={cn(
-				'relative font-berkeley w-10 h-14 text-[2rem]',
+				'relative font-berkeley w-10 h-14 text-2xl',
 				'flex items-center justify-center',
 				'transition-all duration-300',
 				'border-border border-y border-r first:border-l first:rounded-l-md last:rounded-r-md',

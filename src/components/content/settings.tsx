@@ -2,7 +2,7 @@ import { logoutUser, updateUserInformation } from '@/api'
 import { useActiveTabStore, useSessionStore } from '@/store'
 import { useThemeStore } from '@/store'
 import type { Theme } from '@/store/useTheme'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { Button, Input } from '@/components/ui'
 import { DoorOpenIcon, UserCircleIcon, PaintBrushIcon, SunIcon, MoonIcon, CircleWavyCheckIcon } from '@phosphor-icons/react'
@@ -18,6 +18,7 @@ export default function Settings() {
 	const [activeSection, setActiveSection] = useState('profile')
 	const { setSession } = useSessionStore()
 	const { setActiveTab } = useActiveTabStore()
+	const queryClient = useQueryClient()
 
 	const { mutate: handleLogoutUser, isPending: isLoggingOutUser } = useMutation({
 		mutationKey: logoutUser.key,
@@ -26,6 +27,7 @@ export default function Settings() {
 			setSession(null)
 			setActiveTab(0)
 			toast('come back soon :)')
+			queryClient.clear()
 			navigate('/auth/login', { replace: true })
 		},
 		onError: (e) => {
