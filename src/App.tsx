@@ -1,5 +1,3 @@
-'use client'
-
 import { TextAnimate } from '@/components/animations'
 import { AppContainer, Logo } from '@/components/global'
 import { OnboardingFlow } from '@/components/onboarding'
