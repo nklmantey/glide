@@ -1134,7 +1134,7 @@ dependencies = [
 
 [[package]]
 name = "glide"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "base64 0.21.7",
  "cocoa 0.25.0",
