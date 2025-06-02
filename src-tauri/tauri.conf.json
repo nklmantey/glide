@@ -3,9 +3,8 @@
 	"build": {
 		"beforeBuildCommand": "pnpm run build",
 		"beforeDevCommand": "pnpm run dev",
-		"devPath": "http://localhost:3000",
-		"distDir": "../out",
-		"withGlobalTauri": true
+		"devPath": "http://localhost:1420",
+		"distDir": "../dist"
 	},
 	"package": {
 		"productName": "Glide",

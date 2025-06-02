@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+	font-family: 'berkeley';
+	src: local('Berkeley'), url('./assets/fonts/Berkeley.otf');
+}
+
+@font-face {
+	font-family: 'cerealLight';
+	src: local('AirbnbCereal_W_Lt'), url('./assets/fonts/AirbnbCereal_W_Lt.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'cerealMedium';
+	src: local('AirbnbCereal_W_Md'), url('./assets/fonts/AirbnbCereal_W_Md.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'cerealBold';
+	src: local('AirbnbCereal_W_Bd'), url('./assets/fonts/AirbnbCereal_W_Bd.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'cerealRegular';
+	src: local('AirbnbCereal_W_Bk'), url('./assets/fonts/AirbnbCereal_W_Bk.otf') format('opentype');
+}
+
+:root {
+	--font-berkeley: 'berkeley', sans-serif;
+	--font-cereal-light: 'cerealLight', sans-serif;
+	--font-cereal-medium: 'cerealMedium', sans-serif;
+	--font-cereal-bold: 'cerealBold', sans-serif;
+	--font-cereal-regular: 'cerealRegular', sans-serif;
+}
+
+body {
+	font-family: var(--font-cereal-regular);
+	--radius: 0.5rem;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	min-height: 100vh;
+	min-width: 100vw;
+	font-size: 14px;
+}

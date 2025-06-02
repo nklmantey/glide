@@ -1,11 +1,10 @@
 [package]
-name = "app"
+name = "glide"
 version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
-default-run = "app"
+description = "seamless environment management"
+authors = ["Kofi Mantey"]
+license = "MIT"
+repository = "https://github.com/nklmantey/glide"
 edition = "2021"
 rust-version = "1.60"
 

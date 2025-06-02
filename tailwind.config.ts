@@ -2,12 +2,7 @@ import type { Config } from 'tailwindcss'
 
 export default {
 	darkMode: ['class'],
-	content: [
-		'./pages/**/*.{js,ts,jsx,tsx,mdx}',
-		'./components/**/*.{js,ts,jsx,tsx,mdx}',
-		'./app/**/*.{js,ts,jsx,tsx,mdx}',
-		'./node_modules/@ferrucc-io/emoji-picker/dist/**/*.{js,ts,jsx,tsx}',
-	],
+	content: ['./src/**/*.{js,ts,jsx,tsx,mdx}', './node_modules/@ferrucc-io/emoji-picker/dist/**/*.{js,ts,jsx,tsx}'],
 	theme: {
 		extend: {
 			keyframes: {
@@ -44,9 +39,9 @@ export default {
 				foreground: 'var(--foreground)',
 			},
 			fontFamily: {
-				hbold: 'var(--font-lausanne-bold)',
-				regular: 'var(--font-lausanne-regular)',
-				semibold: 'var(--font-lausanne-medium)',
+				hbold: 'var(--font-cereal-bold)',
+				regular: 'var(--font-cereal-regular)',
+				semibold: 'var(--font-cereal-medium)',
 				berkeley: 'var(--font-berkeley)',
 			},
 			borderRadius: {
