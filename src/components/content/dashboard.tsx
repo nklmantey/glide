@@ -1,6 +1,7 @@
 import { BorderBeam, Button, OrbitingCircles, ProfileCard } from '@/components/ui'
 import { motion } from 'motion/react'
-import { SpinnerIcon, LightningSlashIcon, PlusCircleIcon } from '@phosphor-icons/react'
+import { SpinnerIcon } from '@phosphor-icons/react'
+import { BoltSlashIcon, PlusCircleIcon } from '@heroicons/react/16/solid'
 import { EmptyState } from '@/components/global'
 import { useQuery } from '@tanstack/react-query'
 import { getUserProfiles } from '@/api'
@@ -103,8 +104,8 @@ function CurrentProfile() {
 			{activeProfile ? (
 				<div className='flex flex-col items-center justify-center w-full h-full gap-4'>
 					{/* ORBITING CIRCLES ANIMATION */}
-					<div className='relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg'>
-						<span className='pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-black'>
+					<div className='relative flex h-full w-full flex-col items-center justify-center rounded-lg'>
+						<span className='pointer-events-none whitespace-pre-wrap text-center text-8xl font-hbold text-zinc-500 dark:text-zinc-400 leading-none'>
 							{activeProfile.profile_name}
 						</span>
 
@@ -121,7 +122,7 @@ function CurrentProfile() {
 					</div>
 
 					<Button className='w-fit' onClick={handleTurnOffProfile}>
-						<LightningSlashIcon weight='duotone' size={16} />
+						<BoltSlashIcon className='size-4 text-zinc-400' />
 						turn off active profile
 					</Button>
 				</div>
@@ -157,9 +158,9 @@ function YourProfiles() {
 												setRequesGetInstalledApplications(true)
 												setIsCreateDialogOpen(true)
 											}}
-											weight='duotone'
-											size={24}
-											className='cursor-pointer text-zinc-400'
+											// weight='duotone'
+											// size={24}
+											className='cursor-pointer text-zinc-400 size-4'
 										/>
 									</TooltipTrigger>
 									<TooltipContent side='right'>

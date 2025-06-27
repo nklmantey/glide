@@ -1,6 +1,6 @@
 import { useThemeStore } from '@/store'
 import { Toaster } from 'sonner'
-import { CheckCircleIcon, WarningCircleIcon, InfoIcon } from '@phosphor-icons/react'
+import { CheckCircleIcon, ExclamationCircleIcon, InformationCircleIcon } from '@heroicons/react/16/solid'
 
 export function ToasterProvider() {
 	const { theme } = useThemeStore()
@@ -9,9 +9,9 @@ export function ToasterProvider() {
 		<Toaster
 			richColors
 			icons={{
-				success: <CheckCircleIcon weight='duotone' color='green' size={16} />,
-				error: <WarningCircleIcon weight='duotone' color='crimson' size={16} />,
-				info: <InfoIcon weight='duotone' color='cornflowerblue' size={16} />,
+				success: <CheckCircleIcon className='size-4 text-[green]' />,
+				error: <ExclamationCircleIcon className='size-4 text-[crimson]' />,
+				info: <InformationCircleIcon className='size-4 text-[cornflowerblue]' />,
 			}}
 			theme={theme}
 			visibleToasts={1}

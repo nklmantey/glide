@@ -7,7 +7,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useState } from 'react'
-import { SpinnerIcon, InfoIcon } from '@phosphor-icons/react'
+import { SpinnerIcon } from '@phosphor-icons/react'
+import { InformationCircleIcon } from '@heroicons/react/16/solid'
 import { Link, useNavigate, useSearchParams } from 'react-router'
 
 export default function LoginForm() {
@@ -58,7 +59,7 @@ export default function LoginForm() {
 			{isNewUser && !isEmailVerified && (
 				<div className='flex flex-col items-center gap-2 mb-4'>
 					<div className='bg-[cornflowerblue]/20 dark:bg-[cornflowerblue]/10 w-fit rounded-full px-2 py-1 flex items-center gap-2'>
-						<InfoIcon weight='duotone' size={16} color='cornflowerblue' />
+						<InformationCircleIcon className='size-4 text-[cornflowerblue]' />
 						<p className='text-zinc-500 dark:text-zinc-400'>check your email for a one-time verification code</p>
 					</div>
 

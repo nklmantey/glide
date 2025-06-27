@@ -84,8 +84,7 @@ export function ExpandableTabs({ tabs, className, activeColor = 'text-primary', 
 					>
 						<Icon
 							size={20}
-							weight={activeTab === index ? 'fill' : 'regular'}
-							className={cn(activeTab === index ? 'text-zinc-500 dark:text-zinc-300' : 'text-zinc-500 dark:text-zinc-400')}
+							className={cn('size-4', activeTab === index ? 'text-zinc-500 dark:text-zinc-300' : 'text-zinc-500 dark:text-zinc-400')}
 						/>
 						<AnimatePresence initial={false}>
 							{activeTab === index && (
@@ -97,7 +96,7 @@ export function ExpandableTabs({ tabs, className, activeColor = 'text-primary', 
 									transition={transition}
 									className={cn('overflow-hidden', activeTab === index ? 'text-zinc-500 dark:text-zinc-300' : null)}
 								>
-									<p className='font-hbold text-lg'>{tab.title}</p>
+									<p className='font-hbold text-base'>{tab.title}</p>
 								</motion.span>
 							)}
 						</AnimatePresence>

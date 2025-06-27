@@ -8,7 +8,8 @@ import { useEffect, useState } from 'react'
 import { invoke } from '@tauri-apps/api/tauri'
 import { toast } from 'sonner'
 import { saveProfile } from '@/api'
-import { ArrowLeftIcon, SpinnerIcon } from '@phosphor-icons/react'
+import { SpinnerIcon } from '@phosphor-icons/react'
+import { ArrowLeftIcon } from '@heroicons/react/16/solid'
 import { motion } from 'motion/react'
 import { EmojiPicker } from '@ferrucc-io/emoji-picker'
 
@@ -153,7 +154,7 @@ export function CreateProfileDialog({ requesGetInstalledApplications, isDialogOp
 						</EmojiPicker>
 						<div className='flex gap-1 justify-center'>
 							<Button onClick={handlePrevStep}>
-								<ArrowLeftIcon />
+								<ArrowLeftIcon className='size-4 text-zinc-400' />
 							</Button>
 							<Button onClick={handleNextStep} disabled={!formState.emoji}>
 								next
@@ -189,7 +190,7 @@ export function CreateProfileDialog({ requesGetInstalledApplications, isDialogOp
 						</motion.div>
 						<div className='flex gap-1 justify-center'>
 							<Button onClick={handlePrevStep}>
-								<ArrowLeftIcon />
+								<ArrowLeftIcon className='size-4 text-zinc-400' />
 							</Button>
 							<Button
 								onClick={() => {

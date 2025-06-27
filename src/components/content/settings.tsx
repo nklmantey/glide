@@ -5,7 +5,14 @@ import type { Theme } from '@/store/useTheme'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { Button, Input } from '@/components/ui'
-import { DoorOpenIcon, UserCircleIcon, PaintBrushIcon, SunIcon, MoonIcon, CircleWavyCheckIcon } from '@phosphor-icons/react'
+import { UserCircleIcon as UserCircleIconOutline, PaintBrushIcon as PaintBrushIconOutline } from '@heroicons/react/24/outline'
+import {
+	UserCircleIcon as UserCircleIconSolid,
+	PaintBrushIcon as PaintBrushIconSolid,
+	CheckBadgeIcon,
+	SunIcon,
+	MoonIcon,
+} from '@heroicons/react/16/solid'
 import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 import { useTheme } from 'next-themes'
@@ -37,12 +44,12 @@ export default function Settings() {
 
 	const settingsLabels = [
 		{
-			icon: UserCircleIcon,
+			icon: activeSection === 'profile' ? UserCircleIconSolid : UserCircleIconOutline,
 			label: 'profile',
 		},
 		{
 			label: 'appearance',
-			icon: PaintBrushIcon,
+			icon: activeSection === 'appearance' ? PaintBrushIconSolid : PaintBrushIconOutline,
 		},
 	]
 
@@ -70,9 +77,10 @@ export default function Settings() {
 								)}
 							>
 								<Icon
-									size={20}
-									weight={activeSection === i.label ? 'fill' : 'regular'}
-									className={cn(activeSection === i.label ? 'text-zinc-500 dark:text-zinc-400' : 'text-zinc-600 dark:text-zinc-400')}
+									className={cn(
+										'size-4',
+										activeSection === i.label ? 'text-zinc-500 dark:text-zinc-400' : 'text-zinc-600 dark:text-zinc-400'
+									)}
 								/>
 								<p className={cn(activeSection === i.label ? 'text-zinc-500 dark:text-zinc-400' : 'text-zinc-600 dark:text-zinc-400')}>
 									{i.label}
@@ -82,7 +90,7 @@ export default function Settings() {
 					})}
 				</div>
 				<Button onClick={() => handleLogoutUser()} isLoading={isLoggingOutUser} destructive className='group w-fit self-end mr-4'>
-					<DoorOpenIcon className='text-[crimson]/50 group-hover:text-[crimson]' weight='duotone' size={16} />
+					log out
 				</Button>
 			</div>
 
@@ -142,8 +150,8 @@ function Profile() {
 						</div>
 					)}
 					{userMetadata.isEmailVerified && (
-						<div className='absolute bottom-0 right-0 bg-white dark:bg-zinc-800 rounded-full p-1 shadow-sm'>
-							<CircleWavyCheckIcon weight='fill' size={20} className='text-green-500' />
+						<div className='absolute bottom-0 right-0 bg-white dark:bg-zinc-800 rounded-full p-1'>
+							<CheckBadgeIcon className='size-4 text-green-500' />
 						</div>
 					)}
 				</div>
@@ -157,7 +165,7 @@ function Profile() {
 						</div>
 						{userMetadata.isEmailVerified && (
 							<div className='text-xs bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400 px-2 py-1 rounded-md flex items-center gap-1.5'>
-								<CircleWavyCheckIcon weight='duotone' size={12} />
+								<CheckBadgeIcon className='size-3' />
 								Verified account
 							</div>
 						)}
@@ -215,8 +223,6 @@ function Appearance() {
 	const { theme, setTheme } = useThemeStore()
 	const { setTheme: setNextTheme } = useTheme()
 
-	console.log('theme from store', theme)
-
 	useEffect(() => {
 		setNextTheme(theme)
 	}, [])
@@ -268,7 +274,7 @@ function Appearance() {
 								<div
 									className={cn('p-2 rounded-md', theme === option.value ? 'bg-white dark:bg-zinc-900' : 'bg-zinc-100 dark:bg-zinc-800')}
 								>
-									<Icon size={20} weight='duotone' className={theme === option.value ? option.color : 'text-zinc-700 dark:text-zinc-400'} />
+									<Icon className={cn('size-4', theme === option.value ? option.color : 'text-zinc-700 dark:text-zinc-400')} />
 								</div>
 								<div className='flex flex-col items-start gap-1'>
 									<span className='font-hbold text-zinc-800 dark:text-white'>{option.label}</span>

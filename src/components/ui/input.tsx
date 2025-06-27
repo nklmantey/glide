@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 import { InputHTMLAttributes, useState } from 'react'
-import { EyeIcon, EyeClosedIcon } from '@phosphor-icons/react'
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/16/solid'
 
 type InputProps = {
 	placeholder?: string
@@ -36,7 +36,11 @@ export function Input({ placeholder, isInvalid, error, isEditable = true, classN
 						onClick={() => setShowPassword(!showPassword)}
 						className='absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors'
 					>
-						{showPassword ? <EyeClosedIcon weight='duotone' size={20} /> : <EyeIcon weight='duotone' size={20} />}
+						{showPassword ? (
+							<EyeSlashIcon className='size-4 text-zinc-500 dark:text-zinc-400' />
+						) : (
+							<EyeIcon className='size-4 text-zinc-500 dark:text-zinc-400' />
+						)}
 					</button>
 				)}
 			</div>

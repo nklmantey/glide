@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
-import { XIcon } from '@phosphor-icons/react'
+import { XCircleIcon } from '@heroicons/react/16/solid'
 
 import { cn } from '@/lib/utils'
 
@@ -42,8 +42,8 @@ const DialogContent = React.forwardRef<
 			{...props}
 		>
 			{children}
-			<DialogPrimitive.Close className='absolute right-4 top-4 rounded-full bg-zinc-100 dark:bg-zinc-800 p-1'>
-				<XIcon className='h-4 w-4 text-zinc-500 dark:text-zinc-400' />
+			<DialogPrimitive.Close className='absolute right-4 top-4 rounded-full'>
+				<XCircleIcon className='size-4 text-zinc-500 dark:text-zinc-400' />
 				<span className='sr-only'>Close</span>
 			</DialogPrimitive.Close>
 		</DialogPrimitive.Content>

@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { LightningIcon, TrashIcon } from '@phosphor-icons/react'
+import { BoltIcon, TrashIcon } from '@heroicons/react/16/solid'
 import { ProfileCardProps } from '@/types'
 import { invoke } from '@tauri-apps/api/tauri'
 
@@ -82,14 +82,14 @@ export function ProfileCard({ profile, isActive, onSetActive, onDelete }: Profil
 					onClick={handleSetActiveProfile}
 					disabled={isActive}
 				>
-					<LightningIcon color={isActive ? 'darkgoldenrod' : '#b8860b'} weight='duotone' size={16} />
+					<BoltIcon className={cn('size-4', isActive ? 'text-[darkgoldenrod]' : 'text-[#b8860b]')} />
 					{isActive ? 'currently active' : 'set as active'}
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					className='flex items-center gap-1 dark:text-zinc-300 dark:focus:bg-zinc-700/50'
 					onClick={() => onDelete(profile.id)}
 				>
-					<TrashIcon color='crimson' weight='duotone' size={16} />
+					<TrashIcon className='size-4 text-[crimson]' />
 					delete
 				</DropdownMenuItem>
 			</DropdownMenuContent>

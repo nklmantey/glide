@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui'
-import { ArrowLeftIcon } from '@phosphor-icons/react'
+import { ArrowLeftIcon } from '@heroicons/react/16/solid'
 import { useNavigate } from 'react-router'
 
 type BackButtonProps = {
@@ -12,7 +12,7 @@ export default function BackButton({ iconOnly, route }: BackButtonProps) {
 
 	return (
 		<Button onClick={() => (route ? navigate(route) : navigate(-1))}>
-			<ArrowLeftIcon />
+			<ArrowLeftIcon className='size-4 text-zinc-400' />
 			{!iconOnly && 'go back'}
 		</Button>
 	)
